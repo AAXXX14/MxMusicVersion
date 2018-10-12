@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+   <android.support.v4.widget.SwipeRefreshLayout
+       android:id="@+id/localRefreshLayout"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+       <android.support.v4.widget.NestedScrollView
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+
+           <LinearLayout
+               android:id="@+id/localLL"
+               android:layout_width="match_parent"
+               android:orientation="vertical"
+               android:layout_height="wrap_content">
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="48dp"
+                   android:orientation="horizontal">
+                   <ImageView
+                       android:layout_width="36dp"
+                       android:layout_height="36dp"
+                       android:layout_marginLeft="12dp"
+                       android:layout_gravity="center_vertical"
+                       android:src="@drawable/titlebar_music_normal"/>
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="@string/local_music"
+                       android:layout_gravity="center"
+                       android:layout_marginLeft="6dp"
+                       android:textColor="@color/black"
+                       android:layout_marginRight="6dp"/>
+
+                   <TextView
+                       android:id="@+id/localNumTv"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="(20)"
+                       android:layout_gravity="center_vertical"
+                       android:textSize="12sp"/>
+               </LinearLayout>
+               <include layout="@layout/line"/>
+
+
+           </LinearLayout>
+
+
+       </android.support.v4.widget.NestedScrollView>
+   </android.support.v4.widget.SwipeRefreshLayout>
+</layout>

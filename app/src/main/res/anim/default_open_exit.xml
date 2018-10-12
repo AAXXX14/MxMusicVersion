@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android" android:duration="1000" android:interpolator="@android:anim/accelerate_interpolator">
+
+    <!--淡出 顶部下落至底部-->
+    <!--插值器 开始慢后快-->
+
+    <alpha android:fromAlpha="1" android:toAlpha="0"/>
+    <translate android:fromYDelta="100%" android:toYDelta="50%"/>
+
+</set>

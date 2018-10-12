@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">MxMusic</string>
+    <string name="menu_message">消息</string>
+    <string name="menu_task">任务</string>
+    <string name="menu_change_skin">换肤</string>
+    <string name="question_feedback">问题反馈</string>
+    <string name="about_app">关于应用</string>
+    <string name="current_mode">夜间模式</string>
+    <string name="set">设置</string>
+    <string name="exit">退出</string>
+    <string name="loading">努力加载中...</string>
+    <string name="data_empty">没有数据</string>
+    <string name="data_error">加载错误，点击重试</string>
+    <string name="empty_data">暂无数据</string>
+    <string name="local_music">本地音乐</string>
+    <string name="search">搜索</string>
+    <string name="more">更多</string>
+</resources>

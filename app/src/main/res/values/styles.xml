@@ -1,0 +1,65 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="android:windowAnimationStyle">@style/DefaultActivitySwitchAnimation</item>
+    </style>
+
+    <style name="DefaultActivitySwitchAnimation">
+        <item name="android:activityOpenEnterAnimation">@anim/default_open_enter</item><!--activity 进场动画-->
+        <item name="android:activityOpenExitAnimation">@anim/default_close_exit</item><!--activity 尚未销毁 退出动画-->
+        <item name="android:activityCloseEnterAnimation">@anim/default_close_enter</item><!--activity 返回动画-->
+        <item name="android:activityCloseExitAnimation">@anim/default_close_exit</item><!--fuck-->
+    </style>
+
+
+
+    <!--白天主题-->
+    <style name="DayTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    </style>
+
+    <!--夜间主题-->
+    <style name="NightTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/black</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@mipmap/splash_bg</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <!--titleBar样式-->
+    <style name="ToolbarStyle" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+      <!--  <item name="actionBarItemBackground">@drawable/toolbarItemBackground</item>
+        <item name="selectableItemBackground">@drawable/toolbarItemBackground</item>
+        <item name="titleTextAppearance">@style/ToolBar.Title</item>
+        <item name="subtitleTextAppearance">@style/Toolbar.SubTitle</item>-->
+        <item name="android:windowNoTitle">true</item>
+        <!--<item name="android:textSize">18sp</item> &lt;!&ndash;  搞掂字体大小&ndash;&gt;-->
+    </style>
+
+    <style name="BottomSheetContentStyle">
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingLeft">8dp</item>
+    </style>
+
+    <style name="BottomSheetDialogStyle" parent="Theme.Design.BottomSheetDialog">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+     </style>
+
+
+
+
+</resources>

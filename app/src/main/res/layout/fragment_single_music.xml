@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/singleRv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+
+        <TextView
+            android:id="@+id/sortLetterTv"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="22sp"
+            android:text="A"
+            android:visibility="gone"
+            android:layout_centerInParent="true"/>
+
+        <com.lq.mxmusic.view.widget.MusicSlideToolBar
+            android:id="@+id/slideToolBar"
+            android:layout_width="36dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+</layout>

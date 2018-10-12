@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/multipleLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--加载缓存使用-->
+    <RelativeLayout
+        android:id="@+id/dataPlaceHolderRl"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/mLoadingIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/loading"
+            android:scaleType="centerCrop" />
+
+        <!--加载动画-->
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/mLoading"
+            style="@style/SpinKitView.FadingCircle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:SpinKit_Color="@color/colorPrimary" />
+    </RelativeLayout>
+    <!--空数据页面-->
+    <RelativeLayout
+        android:id="@+id/dataEmptyRl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@color/default_bg">
+
+        <ImageView
+            android:id="@+id/dataEmptyIv"
+            android:layout_width="148dp"
+            android:layout_height="148dp"
+            android:layout_centerInParent="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dataEmptyIv"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/empty_data"
+            android:textSize="18sp" />
+    </RelativeLayout>
+    <!--加载错误页面-->
+    <!--网络错误页面-->
+
+
+</FrameLayout>
