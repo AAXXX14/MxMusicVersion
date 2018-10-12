@@ -17,6 +17,8 @@ import com.lq.mxmusic.view.fragment.LocalFragment
 import com.lq.mxmusic.view.fragment.MusicFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import android.support.v7.app.AppCompatDelegate
+import android.view.KeyEvent
+import com.lq.mxmusic.callback.LifeCallBack
 
 
 /*
@@ -24,6 +26,8 @@ import android.support.v7.app.AppCompatDelegate
 *MainActivity by lq
 */
 class MainActivity : BaseActivity() {
+    private var clickTime: Long = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -102,6 +106,20 @@ class MainActivity : BaseActivity() {
             }
             true
         }
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (System.currentTimeMillis() - clickTime <= 2 * 1000) {
+                LifeCallBack.finishAll()
+                LifeCallBack.exit()
+            } else {
+                ShowUtils.showSuccess(this,"再点击一次返回键退出应用")
+                clickTime = System.currentTimeMillis()
+                return true
+            }
+        }
+        return super.onKeyDown(keyCode, event)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

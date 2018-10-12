@@ -1,6 +1,7 @@
 package com.lq.mxmusic.base
 
 import android.app.Application
+import com.lq.mxmusic.callback.LifeCallBack
 
 /*
 *2018/10/9 0009  9:47
@@ -10,6 +11,7 @@ class App : Application(){
 
     override fun onCreate() {
         super.onCreate()
+        registerActivityLifecycleCallbacks(LifeCallBack)
         instance = this
     }
 
