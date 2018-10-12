@@ -5,7 +5,6 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
@@ -60,7 +59,6 @@ class MusicSlideToolBar @JvmOverloads constructor(context: Context, attrs: Attri
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         //画圆柱
-
         //画文字
         for (i in 0 until textContent.size) {
             if (i == chooseItem)

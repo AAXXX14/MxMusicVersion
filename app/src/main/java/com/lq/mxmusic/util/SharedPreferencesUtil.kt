@@ -23,7 +23,7 @@ object SharedPreferencesUtil {
         return sharedPreferences.getInt(AppConfig.NEARLY_MUSIC_PLAY_NUMBER, 0)
     }
 
-    //    下载管理数量
+    //下载管理数量
     fun setDownLoadNumber(number: Int) {
         sharedPreferences.edit().putInt(AppConfig.MUSIC_DOWNLOAD_MANAGER_NUMBER, number).apply()
     }

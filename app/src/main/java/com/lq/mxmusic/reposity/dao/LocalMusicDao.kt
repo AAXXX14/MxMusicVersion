@@ -16,6 +16,9 @@ interface LocalMusicDao{
     @Insert
     fun insertMusic(music:LocalMusicEntity)
 
+    @Insert
+    fun insertAll(list:List<LocalMusicEntity>)
+
     @Delete
     fun deleteMusic(music:LocalMusicEntity)
 

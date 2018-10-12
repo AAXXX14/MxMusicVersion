@@ -6,7 +6,7 @@ import com.lq.mxmusic.reposity.entity.CurrentMusicEntity
 
 /*
 *2018/10/11 0011  15:17
-*function by lq
+*当前播放 表 by lq
 */
 @Dao
 interface CurrentPlayDao{

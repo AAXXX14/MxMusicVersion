@@ -1,5 +1,6 @@
 package com.lq.mxmusic.view.fragment
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomSheetDialog
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.lq.administrator.mxmusic.R
 import com.lq.mxmusic.base.BaseFragment
+import com.lq.mxmusic.reposity.database.AppDataBase
 import com.lq.mxmusic.util.SafeClickListener
 import com.lq.mxmusic.view.activity.LocalMusicActivity
 import kotlinx.android.synthetic.main.fragment_local_music.*
@@ -30,10 +32,14 @@ class LocalFragment : BaseFragment() {
     }
 
     private fun initData() {
+       obtainLocalData()
+    }
+
+    private fun obtainLocalData() {
         val localNumber = SharedPreferencesUtil.getLocalMusicNumber()//本地数量
         val nearlyNumber = SharedPreferencesUtil.getNearlyMusicPlayNumber()//最近播放数量
         val downloadNumber = SharedPreferencesUtil.getDownLoadNumber()//下载管理数量
-        localNumTv.text = "$localNumber"
+        localNumTv.text = "($localNumber)"
     }
 
     private fun initListener() {
@@ -44,7 +50,12 @@ class LocalFragment : BaseFragment() {
             }
         })
         localRefreshLayout.setOnRefreshListener {
-            //todo 从数据库查询 各个表的数据
+            //todo 查询各个表的数据
+            val localNumber = SharedPreferencesUtil.getLocalMusicNumber()//本地数量
+            val nearlyNumber = SharedPreferencesUtil.getNearlyMusicPlayNumber()//最近播放数量
+            val downloadNumber = SharedPreferencesUtil.getDownLoadNumber()//下载管理数量
+            localNumTv.text = "($localNumber)"
+            localRefreshLayout.isRefreshing = false
         }
     }
 

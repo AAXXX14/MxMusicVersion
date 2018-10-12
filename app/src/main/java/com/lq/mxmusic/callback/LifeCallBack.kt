@@ -6,8 +6,8 @@ import android.os.Bundle
 import java.util.*
 
 /*
-*2018/10/9 0009  9:48
-*function by lq
+*2018/10/9   9:48
+*activityLifecycleCallBack by lq
 */
 object LifeCallBack : Application.ActivityLifecycleCallbacks {
     private val activities = LinkedList<Activity>()

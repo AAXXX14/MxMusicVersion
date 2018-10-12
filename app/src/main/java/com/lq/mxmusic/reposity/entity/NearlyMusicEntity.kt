@@ -3,13 +3,13 @@ package com.lq.mxmusic.reposity.entity
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 
-
 /*
-*2018/10/10 0010  17:23
-* 当前播放 数据表 by lq
+*2018/10/12 0012  14:06
+*最近播放 by lq
 */
+
 @Entity
-data class CurrentMusicEntity(
+data class NearlyMusicEntity(
         @PrimaryKey(autoGenerate = true)
         var id: Int,
         var musicName: String,//歌曲名称

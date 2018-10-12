@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+    <!--高斯背景图-->
+    <ImageView
+        android:id="@+id/playBgIv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="高斯背景图"
+        android:scaleType="centerCrop" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="400dp">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/playViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <!--指针-->
+        <ImageView
+            android:id="@+id/playIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

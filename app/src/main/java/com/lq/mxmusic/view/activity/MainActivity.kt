@@ -32,6 +32,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         showToolBar(false)
+        setToolbarColor(R.color.colorPrimary)
         initToolbar()
         initNavigation()
         initViewPager()

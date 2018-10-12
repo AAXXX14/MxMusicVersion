@@ -1,9 +1,14 @@
 package com.lq.mxmusic.base
 
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Build
 import android.os.Bundle
+import android.support.annotation.ColorInt
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +25,7 @@ import kotlinx.android.synthetic.main.fragment_base.*
 open class BaseActivity : AppCompatActivity() {
     private var hasBackIcon = true
     private lateinit var mContentView: ViewGroup
+    private lateinit var provider: ViewModelProvider
     private val emptyView by lazy { layoutInflater.inflate(R.layout.layout_empty_view, null) }
     private val errorView by lazy { layoutInflater.inflate(R.layout.layout_error_view, null) }
     private val loadFailView by lazy {layoutInflater.inflate(R.layout.layout_load_fail_view,null)}
@@ -28,9 +34,10 @@ open class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         super.setContentView(R.layout.activity_base)
         mContentView = findViewById(android.R.id.content)
+        provider = ViewModelProviders.of(this)
         setStatusColor(R.color.colorPrimary)
         DisplayUtils.setCustomDensity(this, App.instance)
-        setToolbar()
+        setToolbar(baseActivityToolbar)
         initData()
         initListener()
     }
@@ -82,8 +89,6 @@ open class BaseActivity : AppCompatActivity() {
      */
     protected fun onRefresh() {}
 
-    /*默认显示加载动画*/
-
 
     override fun setContentView(layoutResID: Int) {
         val view = LayoutInflater.from(this).inflate(layoutResID, container, false)
@@ -126,9 +131,16 @@ open class BaseActivity : AppCompatActivity() {
             baseActivityToolbar.visibility = View.GONE
     }
 
-    private fun setToolbar() {
-        setSupportActionBar(baseActivityToolbar)
+    protected fun setToolbarColor(color:Int){
+        baseActivityToolbar.background = ContextCompat.getDrawable(this,color)
+    }
+
+    protected fun setToolbar(toolbar:Toolbar) {
+        setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(hasBackIcon)
     }
+
+    fun <T : ViewModel> getViewModel(modelClass: Class<T>): T = provider.get(modelClass)
+
 }

@@ -14,5 +14,11 @@ object AppConfig {
     const val APP_DAY_NIGHT_MODE = "app_day_night_mode" //夜间模式
     const val ERROR = "error"
 
+    /*播放*/
+    const val PLAY_ENTITY = "entity"
+    const val PLAY_SOURCE = "lq_play_source"
+    const val PLAY_LOCAL = 1//本地
+    const val PLAY_NEARLY = 2//最近
+
     const val SCAN_REQUEST_CODE = 14
 }

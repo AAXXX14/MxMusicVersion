@@ -31,5 +31,8 @@
         <activity android:name="com.lq.mxmusic.view.activity.MainActivity" />
         <activity android:name="com.lq.mxmusic.view.activity.AboutAppActivity" />
         <activity android:name="com.lq.mxmusic.view.activity.LocalMusicActivity" />
+        <activity android:name="com.lq.mxmusic.view.activity.MusicPlayActivity" />
+
+        <service android:name="com.lq.mxmusic.service.MusicPlayService" />
     </application>
 </manifest>
