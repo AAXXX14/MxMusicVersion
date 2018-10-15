@@ -89,6 +89,9 @@ open class BaseActivity : AppCompatActivity() {
      */
     protected fun onRefresh() {}
 
+    protected fun setFitSystem(fit:Boolean){
+        ll_root.fitsSystemWindows = fit
+    }
 
     override fun setContentView(layoutResID: Int) {
         val view = LayoutInflater.from(this).inflate(layoutResID, container, false)

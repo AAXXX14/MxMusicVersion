@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/rea_click"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/discBgIv"
+        android:layout_width="243dp"
+        android:layout_height="243dp"
+        android:layout_marginTop="60dp"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/play_disc" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivDisc"
+        android:layout_width="178dp"
+        android:layout_height="162dp"
+        android:layout_marginTop="101dp"
+        android:src="@drawable/default_bg"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>

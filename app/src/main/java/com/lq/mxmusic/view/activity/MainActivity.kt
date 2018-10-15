@@ -81,7 +81,7 @@ class MainActivity : BaseActivity() {
         val header = mainNavigation.getHeaderView(0)
         val bgIv = header.findViewById<ImageView>(R.id.main_default_bgIv)
         val headerIv = header.findViewById<ImageView>(R.id.main_default_headerIv)
-        Glide.with(this).asGif().load(R.drawable.default_header).into(headerIv)
+        Glide.with(this).load(R.drawable.default_header).asGif().into(headerIv)
         Glide.with(this).load(R.drawable.default_bg).into(bgIv)
 
         mainNavigation.setNavigationItemSelectedListener { it ->

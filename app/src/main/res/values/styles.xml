@@ -8,6 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">@android:color/white</item>
         <item name="android:windowAnimationStyle">@style/DefaultActivitySwitchAnimation</item>
+
+
     </style>
 
     <style name="DefaultActivitySwitchAnimation">
@@ -44,6 +46,9 @@
         <item name="titleTextAppearance">@style/ToolBar.Title</item>
         <item name="subtitleTextAppearance">@style/Toolbar.SubTitle</item>-->
         <item name="android:windowNoTitle">true</item>
+        <!--文本大小-->
+        <item name="android:textSize">8sp</item>
+        <!--文本颜色-->
         <!--<item name="android:textSize">18sp</item> &lt;!&ndash;  搞掂字体大小&ndash;&gt;-->
     </style>
 

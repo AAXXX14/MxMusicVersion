@@ -10,9 +10,9 @@ import com.lq.mxmusic.callback.LifeCallBack
 class App : Application(){
 
     override fun onCreate() {
-        super.onCreate()
-        registerActivityLifecycleCallbacks(LifeCallBack)
         instance = this
+        registerActivityLifecycleCallbacks(LifeCallBack)
+        super.onCreate()
     }
 
     companion object {
