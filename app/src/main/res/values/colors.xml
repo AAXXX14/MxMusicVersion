@@ -11,6 +11,8 @@
 
     <color name="contentTextColor">@color/black</color>
     <color name="subtitleTextColor">@color/slategray</color>
+    <color name="bottomSheetNormalBackground">#f9ffffff</color>
+
 
     <!--下拉刷新的颜色-->
     <color name="refresh_color">#a0e2ec</color>

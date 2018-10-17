@@ -26,12 +26,12 @@ import com.lq.mxmusic.callback.LifeCallBack
 *MainActivity by lq
 */
 class MainActivity : BaseActivity() {
-    private var clickTime: Long = 0
+            private var clickTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        showToolBar(false)
+        forbidShowToolbar()
         setToolbarColor(R.color.colorPrimary)
         initToolbar()
         initNavigation()

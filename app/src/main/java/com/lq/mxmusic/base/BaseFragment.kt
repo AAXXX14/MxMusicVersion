@@ -26,7 +26,7 @@ abstract class BaseFragment : Fragment() {
     private val loadingView by lazy { layoutInflater.inflate(R.layout.layout_loading_view, null) }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val ll = inflater.inflate(R.layout.fragment_base, null)
-        bindingView = DataBindingUtil.inflate<ViewDataBinding>(inflater, setContent(), null, false, DataBindingComponentUtil())
+        bindingView = DataBindingUtil.inflate<ViewDataBinding>(inflater, setContent(), null, false, DataBindingComponentUtil)
         val params = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         bindingView.root.layoutParams = params
         val mContainer = ll.findViewById<RelativeLayout>(R.id.fragmentContainer)

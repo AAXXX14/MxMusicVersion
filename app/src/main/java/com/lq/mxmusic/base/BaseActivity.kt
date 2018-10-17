@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import com.lq.administrator.mxmusic.R
 import com.lq.mxmusic.util.DisplayUtils
 import com.lq.mxmusic.util.SafeClickListener
@@ -28,8 +29,8 @@ open class BaseActivity : AppCompatActivity() {
     private lateinit var provider: ViewModelProvider
     private val emptyView by lazy { layoutInflater.inflate(R.layout.layout_empty_view, null) }
     private val errorView by lazy { layoutInflater.inflate(R.layout.layout_error_view, null) }
-    private val loadFailView by lazy {layoutInflater.inflate(R.layout.layout_load_fail_view,null)}
-    private val loadingView by lazy {layoutInflater.inflate(R.layout.layout_loading_view,null)}
+    private val loadFailView by lazy { layoutInflater.inflate(R.layout.layout_load_fail_view, null) }
+    private val loadingView by lazy { layoutInflater.inflate(R.layout.layout_loading_view, null) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         super.setContentView(R.layout.activity_base)
@@ -49,11 +50,11 @@ open class BaseActivity : AppCompatActivity() {
     private fun initListener() {
         baseActivityToolbar.setNavigationOnClickListener { onBackPressed() }
         multipleRl.setOnClickListener(object : SafeClickListener() {
-              override fun onNoDoubleClick(v: View) {
-                  showLoading()
-                  onRefresh()
-              }
-          })
+            override fun onNoDoubleClick(v: View) {
+                showLoading()
+                onRefresh()
+            }
+        })
     }
 
     protected fun showEmpty() {
@@ -68,7 +69,7 @@ open class BaseActivity : AppCompatActivity() {
         multipleRl.addView(loadFailView)
     }
 
-    protected fun showError(){
+    protected fun showError() {
         multipleLl.visibility = View.VISIBLE
         multipleLl.removeAllViews()
         multipleLl.addView(errorView)
@@ -84,12 +85,18 @@ open class BaseActivity : AppCompatActivity() {
         multipleRl.visibility = View.GONE
     }
 
+    protected fun forbidShowBottom() {
+        containerBottomLL.visibility = View.GONE
+        val parameters =container.layoutParams as ViewGroup.MarginLayoutParams
+        parameters.bottomMargin =0
+    }
+
     /**
      * 失败后点击刷新
      */
     protected fun onRefresh() {}
 
-    protected fun setFitSystem(fit:Boolean){
+    protected fun setFitSystem(fit: Boolean) {
         ll_root.fitsSystemWindows = fit
     }
 
@@ -127,18 +134,15 @@ open class BaseActivity : AppCompatActivity() {
         hasBackIcon = icon
     }
 
-    protected fun showToolBar(show: Boolean) {
-        if (show)
-            baseActivityToolbar.visibility = View.VISIBLE
-        else
-            baseActivityToolbar.visibility = View.GONE
+    protected fun forbidShowToolbar() {
+        baseActivityToolbar.visibility = View.GONE
     }
 
-    protected fun setToolbarColor(color:Int){
-        baseActivityToolbar.background = ContextCompat.getDrawable(this,color)
+    protected fun setToolbarColor(color: Int) {
+        baseActivityToolbar.background = ContextCompat.getDrawable(this, color)
     }
 
-    protected fun setToolbar(toolbar:Toolbar) {
+    protected fun setToolbar(toolbar: Toolbar) {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(hasBackIcon)

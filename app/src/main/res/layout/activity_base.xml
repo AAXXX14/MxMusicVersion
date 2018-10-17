@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:id="@+id/ll_root"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:fitsSystemWindows="true"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/baseActivityToolbar"
@@ -15,11 +15,12 @@
         app:contentInsetStartWithNavigation="0dp"
         app:layout_scrollFlags="enterAlways|scroll"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:theme="@style/ToolbarStyle" >
+        app:theme="@style/ToolbarStyle">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/mTitleTv"
                 android:layout_width="wrap_content"
@@ -28,34 +29,51 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:text="主页"
-                android:textSize="18sp"
-                android:textColor="@color/white"/>
-        <TextView
-            android:id="@+id/mRightTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="编辑"
-            android:visibility="gone"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="18dp"
-            android:textColor="@color/white"
-            android:textSize="16sp"/>
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/mRightTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="18dp"
+                android:text="编辑"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:visibility="gone" />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
 
-       <RelativeLayout
-           android:id="@+id/container"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:layout_below="@+id/baseActivityToolbar"/>
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        android:layout_below="@+id/baseActivityToolbar" />
 
-       <RelativeLayout
-           android:id="@+id/multipleRl"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_centerInParent="true"
-           android:layout_below="@+id/baseActivityToolbar"/>
+    <!--底部播放fragment-->
+    <LinearLayout
+        android:id="@+id/containerBottomLL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+        <fragment
+            android:id="@+id/mFine"
+            android:name="com.lq.mxmusic.view.fragment.BottomPlayFragment"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+    </LinearLayout>
+
+
+
+    <RelativeLayout
+        android:id="@+id/multipleRl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/baseActivityToolbar"
+        android:layout_centerInParent="true" />
 </RelativeLayout>

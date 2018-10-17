@@ -49,6 +49,7 @@ class LocalFragment : BaseFragment() {
                 startActivity(Intent(v.context, LocalMusicActivity::class.java))
             }
         })
+        localRefreshLayout.setColorSchemeResources(R.color.colorPrimary)
         localRefreshLayout.setOnRefreshListener {
             //todo 查询各个表的数据
             val localNumber = SharedPreferencesUtil.getLocalMusicNumber()//本地数量

@@ -6,6 +6,6 @@ import android.databinding.DataBindingComponent
 *2018/10/11 0011  15:08
 *DataBindingComponent  by lq
 */
-class DataBindingComponentUtil :DataBindingComponent{
+object DataBindingComponentUtil :DataBindingComponent{
 
 }

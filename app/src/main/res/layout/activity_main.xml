@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <!--主布局-->
-   <LinearLayout
+   <RelativeLayout
        android:layout_width="match_parent"
        android:layout_height="match_parent"
        android:orientation="vertical">
@@ -45,8 +45,11 @@
        <android.support.v4.view.ViewPager
            android:id="@+id/mainViewPager"
            android:layout_width="match_parent"
-           android:layout_height="match_parent"/>
-   </LinearLayout>
+           android:layout_height="match_parent"
+           android:layout_below="@+id/mainToolbar"/>
+
+
+   </RelativeLayout>
 
     <!--侧边栏-->
     <android.support.design.widget.NavigationView

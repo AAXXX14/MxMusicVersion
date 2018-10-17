@@ -46,7 +46,7 @@ object LogUtil{
         val bytes: ByteArray = msg.toByteArray()
         val length = bytes.size
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
-        var newMsg = "$TOP_BORDER\n$LEFT_BORDER\t${sdf.format(Date())}\n$LEFT_BORDER\t${targetStackTraceMSg()}"
+        var newMsg = "\n${sdf.format(Date())}\n\t${targetStackTraceMSg()}"
         if (length > CHUNK_SIZE) {
             var i = 0
             while (i < length) {
@@ -58,7 +58,7 @@ object LogUtil{
         } else {
             newMsg += "\n$LEFT_BORDER\t$msg"
         }
-        newMsg += "\n$BOTTOM_BORDER"
+//        newMsg += "\n$BOTTOM_BORDER"
         return newMsg
     }
 

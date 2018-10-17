@@ -5,6 +5,11 @@ import com.lq.mxmusic.reposity.config.AppConfig
 object SharedPreferencesUtil {
     private val sharedPreferences by lazy { App.instance.applicationContext.getSharedPreferences(AppConfig.SP_DEFAULT_NAME, Context.MODE_PRIVATE) }
 
+    //当前播放歌单
+    fun setPlaySource(source:Int){
+        sharedPreferences.edit().putInt(AppConfig.PLAY_SOURCE,source).apply()
+    }
+
     //本地音乐数量
     fun setLocalMusicNumber(number: Int) {
         sharedPreferences.edit().putInt(AppConfig.LOCAL_MUSIC_NUMBER, number).apply()
@@ -30,6 +35,14 @@ object SharedPreferencesUtil {
 
     fun getDownLoadNumber():Int{
         return sharedPreferences.getInt(AppConfig.MUSIC_DOWNLOAD_MANAGER_NUMBER,0)
+    }
+    //当前播放进度
+    fun setCurrentPlayPosition(position:Int){
+        sharedPreferences.edit().putInt(AppConfig.MUSIC_CURRENT_PLAY_POSITION,position).apply()
+    }
+
+    fun getCurrentPlayPosition():Int{
+        return sharedPreferences.getInt(AppConfig.MUSIC_CURRENT_PLAY_POSITION,0)
     }
 
     //夜间模式

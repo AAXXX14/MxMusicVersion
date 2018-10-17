@@ -18,7 +18,7 @@ class PlayDiscViewPagerAdapter(private val mDiscLayouts: List<String>) : PagerAd
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val discLayout = LayoutInflater.from(container.context).inflate(R.layout.layout_disc, null)
         val iv = discLayout.findViewById<ImageView>(R.id.ivDisc)
-        Glide.with(container.context).load(String).into(iv)
+        Glide.with(container.context).load(mDiscLayouts[position]).error(R.drawable.default_bg).into(iv)
         container.addView(discLayout)
         return discLayout
     }

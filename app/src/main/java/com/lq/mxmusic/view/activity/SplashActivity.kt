@@ -26,7 +26,8 @@ class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        showToolBar(false)
+        forbidShowToolbar()
+        forbidShowBottom()
         val i = Random().nextInt(CacheImageConfig.SPLASH_URLS.size)
         Glide.with(this).load(R.drawable.default_bg).listener(object : RequestListener<Int, GlideDrawable> {
             override fun onException(e: Exception, model: Int?, target: Target<GlideDrawable>, isFirstResource: Boolean): Boolean {

@@ -1,15 +1,13 @@
 package com.lq.mxmusic.view.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import com.lq.administrator.mxmusic.R
 import com.lq.mxmusic.base.App
 import com.lq.mxmusic.base.BaseFragment
-import com.lq.mxmusic.reposity.config.AppConfig
 import com.lq.mxmusic.reposity.database.AppDataBase
 import com.lq.mxmusic.reposity.entity.LocalMusicEntity
+import com.lq.mxmusic.util.PlayUtils
 import com.lq.mxmusic.util.ScanMusicUtils
-import com.lq.mxmusic.view.activity.MusicPlayActivity
 import com.lq.mxmusic.view.adapter.MusicRecyclerAdapter
 import com.lq.mxmusic.view.widget.MusicSlideToolBar
 import kotlinx.android.synthetic.main.fragment_single_music.*
@@ -43,12 +41,9 @@ class SingleMusicFragment : BaseFragment() {
         mList.clear()
         mList.addAll(all)
         singleRv.adapter = adapter
-        if (all.isEmpty()) {
-            showEmpty()
-        }
+        if (all.isEmpty()) showEmpty()
         adapter.setOnItemChildClickListener { _, view, position ->
-            view.context.startActivity(Intent(view.context, MusicPlayActivity::class.java)
-                    .putExtra(AppConfig.PLAY_ENTITY, mList[position]).putExtra(AppConfig.PLAY_SOURCE, AppConfig.PLAY_LOCAL))
+            PlayUtils.preparePlay(view.context,position,mList)
         }
     }
 
