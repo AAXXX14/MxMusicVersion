@@ -2,6 +2,7 @@ package com.lq.mxmusic.service
 
 import android.app.Service
 import android.content.Intent
+import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.os.IBinder
 import android.util.Log
@@ -9,6 +10,7 @@ import com.lq.mxmusic.reposity.config.AppConfig
 import com.lq.mxmusic.reposity.config.PlayConfig
 import com.lq.mxmusic.reposity.database.AppDataBase
 import com.lq.mxmusic.reposity.entity.LocalMusicEntity
+import com.lq.mxmusic.reposity.entity.NearlyMusicEntity
 import com.lq.mxmusic.reposity.event.MusicPlayServiceEvent
 import com.lq.mxmusic.util.LogUtil
 import org.greenrobot.eventbus.EventBus
@@ -31,13 +33,14 @@ class MusicPlayService : Service() {
         private val musicInfoList = ArrayList<LocalMusicEntity>()   //存放Mp3Info对象的集合
         private var path: String? = null            // 音乐文件路径
         /*设置播放列表*/
-        fun setData(list: List<LocalMusicEntity>, current: Int) {
+        fun setData(list: List<LocalMusicEntity>) {
             musicInfoList.clear()
             musicInfoList.addAll(list)
             //存储变量当前播放列表
             AppConfig.localPlayList = musicInfoList
-            this.current = current
-            path = musicInfoList[current].musicPath
+            current = SharedPreferencesUtil.getPlayPosition()
+            if (musicInfoList.size > current)
+                path = musicInfoList[current].musicPath
         }
     }
 
@@ -72,9 +75,12 @@ class MusicPlayService : Service() {
     private fun play(currentTime: Int) {
         this.currentTime = currentTime
         mediaPlayer.reset()// 把各项参数恢复到初始状态
+        current = SharedPreferencesUtil.getPlayPosition()
         path = musicInfoList[current].musicPath
         LogUtil.w("LogTag", "$current")
         mediaPlayer.setDataSource(path)
+        SharedPreferencesUtil.setPlayPosition(current)
+        EventBus.getDefault().postSticky(MusicPlayServiceEvent.MusicPlayChangeStateEvent)
         mediaPlayer.prepareAsync() // 进行缓冲
 
         PlayConfig.IS_PLAY = true
@@ -109,18 +115,19 @@ class MusicPlayService : Service() {
     private fun pause() {
         if (mediaPlayer.isPlaying) {
             mediaPlayer.pause()
-            PlayConfig.IS_PLAY = false
-            PlayConfig.CURRENT_STATE = PlayConfig.PAUSE
-            //存储当前播放进度
-            SharedPreferencesUtil.setCurrentPlayPosition(currentTime)
-            //通知播放页面进行动画操作，进行数据更换。
         }
+        PlayConfig.IS_PLAY = false
+        PlayConfig.CURRENT_STATE = PlayConfig.PAUSE
+        //存储当前播放进度
+        SharedPreferencesUtil.setCurrentPlayPosition(mediaPlayer.currentPosition)
+        //通知播放页面进行动画操作，进行数据更换。
     }
 
     /*恢复0*/
     private fun resume() {
         currentTime = SharedPreferencesUtil.getCurrentPlayPosition()
         play(currentTime)
+        PlayConfig.IS_PLAY = true
     }
 
     private fun initListener() {
@@ -148,6 +155,19 @@ class MusicPlayService : Service() {
             it.start() // 开始播放
             if (currentTime > 0) { // 如果音乐不是从头播放
                 it.seekTo(currentTime)
+            }
+
+            //往最近播放中 添加数据
+            if (path == null) {
+                //播放路径错误  不添加进表单
+            } else {
+                val entity = AppDataBase.instance.nearlyMusicDao().queryByPath(path!!)
+                if (entity != null) { //先删除 再添加 将本条目 置顶
+                    AppDataBase.instance.nearlyMusicDao().deleteMusic(entity)
+                }
+                val data = musicInfoList[current]
+                val nearlyEntity = NearlyMusicEntity(data.id, data.musicName, data.musicSingerName, data.musicPath, data.musicProgress, data.musicLength)
+                AppDataBase.instance.nearlyMusicDao().insertMusic(nearlyEntity)
             }
         }
     }

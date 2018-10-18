@@ -2,6 +2,7 @@ package com.lq.mxmusic.util
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import com.lq.mxmusic.reposity.config.AppConfig
 import com.lq.mxmusic.reposity.config.PlayConfig
 import com.lq.mxmusic.reposity.entity.LocalMusicEntity
@@ -14,39 +15,48 @@ import org.greenrobot.eventbus.EventBus
 *2018/10/17 0017  10:50
 *function by lq
 */
-object PlayUtils{
+object PlayUtils {
 
-    fun preparePlay(context:Context,position:Int,mList:List<LocalMusicEntity>){
+    fun preparePlay(context: Context, position: Int, source: Int, mList: List<LocalMusicEntity>) {
         // 开启服务
-        if(!ServiceUtil.isRunning("com.lq.mxmusic.service.MusicPlayService")){
-            context.startService(Intent(context, MusicPlayService::class.java))
-        }
+        ServiceUtil.startPlayService(context)
         /*设置播放状态*/
         PlayConfig.CURRENT_STATE = PlayConfig.PLAY
         PlayConfig.IS_PLAY = true
-        AppConfig.currentPlayPosition = position
-        MusicPlayService.setData(mList,position)
+        SharedPreferencesUtil.setPlayPosition(position)
+        SharedPreferencesUtil.setPlaySource(source)
+        MusicPlayService.setData(mList)
         EventBus.getDefault().postSticky(MusicPlayServiceEvent.MusicPlayServiceChangeStateEvent)
-        if(AppConfig.currentPlayPosition == position)
-            context.startActivity(Intent(context, MusicPlayActivity::class.java)
-                    .putExtra(AppConfig.PLAY_ENTITY, mList[position]).putExtra(AppConfig.PLAY_SOURCE, AppConfig.PLAY_LOCAL))
     }
 
-    fun play(){
+    fun play() {
         PlayConfig.CURRENT_STATE = PlayConfig.PLAY
-        PlayConfig.IS_PLAY = true
         EventBus.getDefault().postSticky(MusicPlayServiceEvent.MusicPlayServiceChangeStateEvent)
     }
 
-    fun next(){
-        AppConfig.currentPlayPosition++
+    fun next() {
+        var position = SharedPreferencesUtil.getPlayPosition()
+        position++
+        SharedPreferencesUtil.setPlayPosition(position)
         PlayConfig.CURRENT_STATE = PlayConfig.NEXT
         EventBus.getDefault().postSticky(MusicPlayServiceEvent.MusicPlayServiceChangeStateEvent)
     }
 
-    fun previous(){
-        AppConfig.currentPlayPosition--
+    fun previous() {
+        var position = SharedPreferencesUtil.getPlayPosition()
+        position--
+        SharedPreferencesUtil.setPlayPosition(position)
         PlayConfig.CURRENT_STATE = PlayConfig.PREVIOUS
+        EventBus.getDefault().postSticky(MusicPlayServiceEvent.MusicPlayServiceChangeStateEvent)
+    }
+
+    fun pause() {
+        PlayConfig.CURRENT_STATE = PlayConfig.PAUSE
+        EventBus.getDefault().postSticky(MusicPlayServiceEvent.MusicPlayServiceChangeStateEvent)
+    }
+
+    fun resume() {
+        PlayConfig.CURRENT_STATE = PlayConfig.RESUME
         EventBus.getDefault().postSticky(MusicPlayServiceEvent.MusicPlayServiceChangeStateEvent)
     }
 }

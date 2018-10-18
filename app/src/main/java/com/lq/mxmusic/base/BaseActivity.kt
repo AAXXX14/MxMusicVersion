@@ -5,17 +5,16 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Build
 import android.os.Bundle
-import android.support.annotation.ColorInt
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RelativeLayout
 import com.lq.administrator.mxmusic.R
 import com.lq.mxmusic.util.DisplayUtils
-import com.lq.mxmusic.util.SafeClickListener
+import com.lq.mxmusic.callback.SafeClickCallBack
+import com.lq.mxmusic.util.ServiceUtil
 import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.fragment_base.*
 
@@ -41,6 +40,9 @@ open class BaseActivity : AppCompatActivity() {
         setToolbar(baseActivityToolbar)
         initData()
         initListener()
+
+        //todo 默认开启服务
+        ServiceUtil.startPlayService(this)
     }
 
     private fun initData() {
@@ -49,7 +51,7 @@ open class BaseActivity : AppCompatActivity() {
 
     private fun initListener() {
         baseActivityToolbar.setNavigationOnClickListener { onBackPressed() }
-        multipleRl.setOnClickListener(object : SafeClickListener() {
+        multipleRl.setOnClickListener(object : SafeClickCallBack() {
             override fun onNoDoubleClick(v: View) {
                 showLoading()
                 onRefresh()

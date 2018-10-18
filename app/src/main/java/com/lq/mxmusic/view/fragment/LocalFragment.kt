@@ -1,6 +1,5 @@
 package com.lq.mxmusic.view.fragment
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomSheetDialog
@@ -11,8 +10,11 @@ import android.widget.LinearLayout
 import com.lq.administrator.mxmusic.R
 import com.lq.mxmusic.base.BaseFragment
 import com.lq.mxmusic.reposity.database.AppDataBase
-import com.lq.mxmusic.util.SafeClickListener
+import com.lq.mxmusic.reposity.entity.NearlyMusicEntity
+import com.lq.mxmusic.util.LogUtil
+import com.lq.mxmusic.callback.SafeClickCallBack
 import com.lq.mxmusic.view.activity.LocalMusicActivity
+import com.lq.mxmusic.view.activity.NearlyPlayActivity
 import kotlinx.android.synthetic.main.fragment_local_music.*
 
 /*
@@ -28,11 +30,17 @@ class LocalFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initListener()
+        //删除该表下所有数据
+        val mList = ArrayList<NearlyMusicEntity>()
+        mList.addAll(AppDataBase.instance.nearlyMusicDao().queryAll())
+        val size = mList.size
+        val number = AppDataBase.instance.nearlyMusicDao().deleteAll(mList)
+        LogUtil.i("Number", "size:$size number:$number")
         initData()
     }
 
     private fun initData() {
-       obtainLocalData()
+        obtainLocalData()
     }
 
     private fun obtainLocalData() {
@@ -40,22 +48,33 @@ class LocalFragment : BaseFragment() {
         val nearlyNumber = SharedPreferencesUtil.getNearlyMusicPlayNumber()//最近播放数量
         val downloadNumber = SharedPreferencesUtil.getDownLoadNumber()//下载管理数量
         localNumTv.text = "($localNumber)"
+        nearlyNumTv.text = "($nearlyNumber)"
     }
 
     private fun initListener() {
-        localLL.setOnClickListener(object : SafeClickListener() {
+        localLL.setOnClickListener(object : SafeClickCallBack() {
             override fun onNoDoubleClick(v: View) {
 //                showBoardBottom()
                 startActivity(Intent(v.context, LocalMusicActivity::class.java))
             }
         })
+        nearlyLL.setOnClickListener(object: SafeClickCallBack(){
+            override fun onNoDoubleClick(v: View) {
+                startActivity(Intent(v.context,NearlyPlayActivity::class.java))
+            }
+        })
         localRefreshLayout.setColorSchemeResources(R.color.colorPrimary)
         localRefreshLayout.setOnRefreshListener {
-            //todo 查询各个表的数据
-            val localNumber = SharedPreferencesUtil.getLocalMusicNumber()//本地数量
-            val nearlyNumber = SharedPreferencesUtil.getNearlyMusicPlayNumber()//最近播放数量
+            // 查询各个表的数据
+            val localNumber = AppDataBase.instance.localMusicDao().queryAll().size//本地数量
+            val nearlyNumber = AppDataBase.instance.nearlyMusicDao().queryAll().size//最近播放数量
+            val currentNumber = AppDataBase.instance.currentPlayDao().queryAll().size//当前播放 歌单数量
+            ShowUtils.showInfo(context!!,"$currentNumber")
             val downloadNumber = SharedPreferencesUtil.getDownLoadNumber()//下载管理数量
             localNumTv.text = "($localNumber)"
+            nearlyNumTv.text = "($nearlyNumber)"
+            SharedPreferencesUtil.setLocalMusicNumber(localNumber)
+            SharedPreferencesUtil.setNearlyMusicPlayNumber(nearlyNumber)
             localRefreshLayout.isRefreshing = false
         }
     }

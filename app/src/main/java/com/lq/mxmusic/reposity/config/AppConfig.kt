@@ -21,10 +21,10 @@ object AppConfig {
     /*播放*/
     const val PLAY_ENTITY = "entity"
     const val PLAY_SOURCE = "lq_play_source"
+    const val PLAY_POSITION = "lq_play_position"
     const val PLAY_LOCAL = 1//本地
     const val PLAY_NEARLY = 2//最近
     var localPlayList: ArrayList<LocalMusicEntity>? = null
-    var currentPlayPosition = -1
 
     const val NEEDLE_BACK_ANIMATOR_DURATION = 500.toLong()
     const val NEEDLE_GO_ANIMATION_DURATION = 200.toLong()

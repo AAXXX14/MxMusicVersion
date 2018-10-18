@@ -8,21 +8,26 @@ import com.lq.mxmusic.reposity.entity.NearlyMusicEntity
 
 /*
 *2018/10/12 0012  14:11
-*function by lq
+*最近播放 by lq
 */
 @Dao
-interface NearlyMusicDao{
+interface NearlyMusicDao {
     @Insert
     fun insertMusic(music: NearlyMusicEntity)
 
     @Insert
-    fun insertAll(list:List<NearlyMusicEntity>)
+    fun insertAll(list: List<NearlyMusicEntity>)
 
     @Delete
     fun deleteMusic(music: NearlyMusicEntity)
 
+    @Delete
+    fun deleteAll(list:ArrayList<NearlyMusicEntity>) :Int
+
+    @Query("select * from NearlyMusicEntity where musicPath= :path")
+    fun queryByPath(path: String): NearlyMusicEntity?
 
     @Query("select * from LocalMusicEntity")
-    fun queryAll():List<NearlyMusicEntity>
+    fun queryAll(): List<NearlyMusicEntity>
 
 }

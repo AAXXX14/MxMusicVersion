@@ -28,7 +28,8 @@ object ScanMusicUtils {
                 val music_singer = c.getString(c.getColumnIndex(MediaStore.Audio.Media.ARTIST))
                 val path = c.getString(c.getColumnIndex(MediaStore.Audio.Media.DATA))
                 val length = obtainMusicTime(path)
-                arrayList.add(LocalMusicEntity(0, music_name, music_singer, path, 0, length))
+                if (length > 15)//音频文件 大于15秒 设定为 歌曲内容
+                    arrayList.add(LocalMusicEntity(0, music_name, music_singer, path, 0, length))
             }
         }
         return arrayList
@@ -37,20 +38,15 @@ object ScanMusicUtils {
     //获取当前歌曲的时长
     private fun obtainMusicTime(url: String?): Long {
         val mediaPlayer = MediaPlayer()
-        if (url != null && !url.isEmpty() && url != "") {
-            try {
-                LogUtil.e(TAG, url)
-                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC)
-                mediaPlayer.setDataSource(url)
-                mediaPlayer.prepareAsync()
-            } catch (e: IOException) {
-                e.printStackTrace()
-                ShowUtils.showInfo(App.instance, "播放地址出错,请耐心等待...")
-                return 0
-            }
-
+        var duration = 0
+        if (url != null && !url.isEmpty()) {
+            LogUtil.e(TAG, url)
+            mediaPlayer.setDataSource(url)
+            mediaPlayer.prepare()
+            duration = mediaPlayer.duration
+            mediaPlayer.release()
         }
-        return (mediaPlayer.duration / 1000).toLong() //返回了秒数
+        return duration / 1000.toLong() //返回了秒数
     }
 
     /**

@@ -20,20 +20,22 @@
                 android:layout_height="43dp" />
 
             <ImageView
-                android:id="@+id/control"
-                android:layout_width="43dp"
+                android:id="@+id/controlIv"
+                android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginRight="6dp"
+                android:src="@drawable/icon_play"
                 android:layout_gravity="center_vertical"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 />
 
             <ImageView
-                android:id="@+id/play_list"
+                android:id="@+id/playListIv"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginRight="6dp"
                 android:layout_gravity="center_vertical"
+                android:src="@drawable/titlebar_menu"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 />
 

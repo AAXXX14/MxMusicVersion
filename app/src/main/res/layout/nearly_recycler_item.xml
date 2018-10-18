@@ -4,10 +4,8 @@
     <data>
         <variable
             name="entity"
-            type="com.lq.mxmusic.reposity.entity.LocalMusicEntity"/>
+            type="com.lq.mxmusic.reposity.entity.NearlyMusicEntity"/>
 
-        <import
-            type="com.lq.mxmusic.viewmodel.ClickViewModel"/>
     </data>
 
     <RelativeLayout
@@ -64,11 +62,5 @@
             android:layout_marginRight="12dp"
             android:contentDescription="播放按钮" />
 
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0.3dp"
-            android:layout_alignParentBottom="true"
-            android:background="#dcdbdb"/>
     </RelativeLayout>
 </layout>

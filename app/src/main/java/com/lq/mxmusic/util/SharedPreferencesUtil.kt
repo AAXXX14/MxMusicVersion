@@ -6,8 +6,21 @@ object SharedPreferencesUtil {
     private val sharedPreferences by lazy { App.instance.applicationContext.getSharedPreferences(AppConfig.SP_DEFAULT_NAME, Context.MODE_PRIVATE) }
 
     //当前播放歌单
-    fun setPlaySource(source:Int){
-        sharedPreferences.edit().putInt(AppConfig.PLAY_SOURCE,source).apply()
+    fun setPlaySource(source: Int) {
+        sharedPreferences.edit().putInt(AppConfig.PLAY_SOURCE, source).apply()
+    }
+
+    fun getPlaySource(): Int {
+        return sharedPreferences.getInt(AppConfig.PLAY_SOURCE, 1)//默认本地音乐
+    }
+
+    //当前播放位置
+    fun setPlayPosition(position: Int) {
+        sharedPreferences.edit().putInt(AppConfig.PLAY_POSITION, position).apply()
+    }
+
+    fun getPlayPosition(): Int {
+        return sharedPreferences.getInt(AppConfig.PLAY_POSITION, 0)
     }
 
     //本地音乐数量
@@ -33,25 +46,26 @@ object SharedPreferencesUtil {
         sharedPreferences.edit().putInt(AppConfig.MUSIC_DOWNLOAD_MANAGER_NUMBER, number).apply()
     }
 
-    fun getDownLoadNumber():Int{
-        return sharedPreferences.getInt(AppConfig.MUSIC_DOWNLOAD_MANAGER_NUMBER,0)
-    }
-    //当前播放进度
-    fun setCurrentPlayPosition(position:Int){
-        sharedPreferences.edit().putInt(AppConfig.MUSIC_CURRENT_PLAY_POSITION,position).apply()
+    fun getDownLoadNumber(): Int {
+        return sharedPreferences.getInt(AppConfig.MUSIC_DOWNLOAD_MANAGER_NUMBER, 0)
     }
 
-    fun getCurrentPlayPosition():Int{
-        return sharedPreferences.getInt(AppConfig.MUSIC_CURRENT_PLAY_POSITION,0)
+    //当前播放进度
+    fun setCurrentPlayPosition(position: Int) {
+        sharedPreferences.edit().putInt(AppConfig.MUSIC_CURRENT_PLAY_POSITION, position).apply()
+    }
+
+    fun getCurrentPlayPosition(): Int {
+        return sharedPreferences.getInt(AppConfig.MUSIC_CURRENT_PLAY_POSITION, 0)
     }
 
     //夜间模式
-    fun setDayNightMode(isDay:Boolean){
-        sharedPreferences.edit().putBoolean(AppConfig.APP_DAY_NIGHT_MODE,isDay).apply()
+    fun setDayNightMode(isDay: Boolean) {
+        sharedPreferences.edit().putBoolean(AppConfig.APP_DAY_NIGHT_MODE, isDay).apply()
     }
 
-    fun getDayNightMode():Boolean{
-        return sharedPreferences.getBoolean(AppConfig.APP_DAY_NIGHT_MODE,false)
+    fun getDayNightMode(): Boolean {
+        return sharedPreferences.getBoolean(AppConfig.APP_DAY_NIGHT_MODE, false)
     }
 
 }

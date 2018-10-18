@@ -83,6 +83,9 @@ class MusicSlideToolBar @JvmOverloads constructor(context: Context, attrs: Attri
                 invalidate()
                 textView?.visibility = View.GONE
             }
+            MotionEvent.ACTION_CANCEL ->{
+                textView?.visibility = View.GONE
+            }
             else -> {
                 setBackgroundColor(resources.getColor(R.color.gray))
                 textView?.visibility = View.VISIBLE

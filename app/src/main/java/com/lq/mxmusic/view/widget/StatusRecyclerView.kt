@@ -74,7 +74,7 @@ class StatusRecyclerView @JvmOverloads constructor(context: Context, attrs: Attr
         stateRv.layoutManager = layoutManager
     }
 
-    fun setAdapter(adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) {
+    fun setAdapter(adapter: RecyclerView.Adapter<*>) {
         stateRv.adapter = adapter
     }
 
@@ -85,11 +85,9 @@ class StatusRecyclerView @JvmOverloads constructor(context: Context, attrs: Attr
         const val STATE_NORMAL = 4
     }
 
-    private fun setErrorView(view: View) {
-
-    }
+   /* private fun setErrorView(view: View) {}
 
     private fun setEmptyView(view: View) {}
 
-    private fun setLoadingView(view: View) {}
+    private fun setLoadingView(view: View) {}*/
 }

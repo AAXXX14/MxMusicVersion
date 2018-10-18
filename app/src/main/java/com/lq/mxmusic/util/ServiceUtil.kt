@@ -3,7 +3,9 @@ package com.lq.mxmusic.util
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Context.ACTIVITY_SERVICE
+import android.content.Intent
 import com.lq.mxmusic.base.App
+import com.lq.mxmusic.service.MusicPlayService
 
 
 /*
@@ -19,5 +21,9 @@ object ServiceUtil {
             }
         }
         return false
+    }
+
+    fun startPlayService(context:Context){
+        if(!isRunning("com.lq.mxmusic.service.MusicPlayService")) context.startService(Intent(context,MusicPlayService::class.java))
     }
 }

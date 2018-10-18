@@ -39,6 +39,7 @@
                 android:ellipsize="marquee"
                 android:singleLine="true"
                 android:text="给少年的歌"
+                android:focusable="true"
                 android:layout_marginTop="2dp"
                 android:textSize="12dp" />
 

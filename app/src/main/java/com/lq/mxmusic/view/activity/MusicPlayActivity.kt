@@ -20,7 +20,7 @@ import com.lq.mxmusic.reposity.config.PlayConfig
 import com.lq.mxmusic.reposity.entity.CurrentMusicEntity
 import com.lq.mxmusic.reposity.entity.LocalMusicEntity
 import com.lq.mxmusic.reposity.event.MusicPlayServiceEvent
-import com.lq.mxmusic.util.SafeClickListener
+import com.lq.mxmusic.callback.SafeClickCallBack
 import com.lq.mxmusic.view.adapter.PlayDiscViewPagerAdapter
 import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.activity_music_play.*
@@ -69,15 +69,15 @@ class MusicPlayActivity : BaseActivity() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    fun changeState(event: MusicPlayServiceEvent.MusicPlayServiceChangeStateEvent) {
+    fun changeState(event: MusicPlayServiceEvent.MusicPlayChangeStateEvent) {
         if (PlayConfig.IS_PLAY) {
-            //播放状态 指针离开
-            startNeedleAnimation()
+            //播放状态 指针回摆
+            stopNeedleAnimation()
             //旋转动画
             startRecordRotation()
         } else {
-            //暂停状态 指针回摆
-            stopNeedleAnimation()
+            //暂停状态 指针离开
+            startNeedleAnimation()
             stopRecordRotation()
         }
     }
@@ -141,7 +141,7 @@ class MusicPlayActivity : BaseActivity() {
     }
 
     private fun initListener() {
-        play_back.setOnClickListener(object : SafeClickListener() {
+        play_back.setOnClickListener(object : SafeClickCallBack() {
             override fun onNoDoubleClick(v: View) {
                 onBackPressed()
             }
@@ -150,9 +150,9 @@ class MusicPlayActivity : BaseActivity() {
             override fun onPageScrollStateChanged(state: Int) {
                 //页面状态改变。当按下时不需要改变，滑动动画完成时不需要改变，但触摸离开屏幕时要清除动画
                 when (state) {
-                    ViewPager.SCROLL_STATE_IDLE-> {}//滑动动画完成时启用的方法
-                    ViewPager.SCROLL_STATE_SETTLING ->startNeedleAnimation()//离开屏幕时启用
-                    ViewPager.SCROLL_STATE_DRAGGING-> stopNeedleAnimation()//按住屏幕开始拖拽时启用
+                    ViewPager.SCROLL_STATE_IDLE -> {}//滑动动画完成时启用的方法
+                    ViewPager.SCROLL_STATE_SETTLING -> startNeedleAnimation()//离开屏幕时启用
+                    ViewPager.SCROLL_STATE_DRAGGING -> stopNeedleAnimation()//按住屏幕开始拖拽时启用
                 }
             }
 

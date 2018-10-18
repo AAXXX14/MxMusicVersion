@@ -1,4 +1,4 @@
-package com.lq.mxmusic.util
+package com.lq.mxmusic.callback
 
 import android.view.View
 import android.view.View.OnClickListener
@@ -8,7 +8,7 @@ import java.util.Calendar
 /**
  * 避免在1秒内出发多次点击
  */
-abstract class SafeClickListener : OnClickListener {
+abstract class SafeClickCallBack : OnClickListener {
     private var lastClickTime: Long = 0
     private var id = -1
 

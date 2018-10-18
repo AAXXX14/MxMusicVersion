@@ -29,8 +29,8 @@ class SplashActivity : BaseActivity() {
         forbidShowToolbar()
         forbidShowBottom()
         val i = Random().nextInt(CacheImageConfig.SPLASH_URLS.size)
-        Glide.with(this).load(R.drawable.default_bg).listener(object : RequestListener<Int, GlideDrawable> {
-            override fun onException(e: Exception, model: Int?, target: Target<GlideDrawable>, isFirstResource: Boolean): Boolean {
+        Glide.with(this).load(CacheImageConfig.SPLASH_URLS[i]).listener(object : RequestListener<String, GlideDrawable> {
+            override fun onException(e: Exception, model: String?, target: Target<GlideDrawable>, isFirstResource: Boolean): Boolean {
                 disposable = Observable.timer(5, TimeUnit.MILLISECONDS).compose(Transformer.switchSchedulers())
                         .subscribe {
                             startActivity(Intent(this@SplashActivity, MainActivity::class.java))
@@ -39,7 +39,7 @@ class SplashActivity : BaseActivity() {
                 return false
             }
 
-            override fun onResourceReady(resource: GlideDrawable, model: Int?, target: Target<GlideDrawable>, isFromMemoryCache: Boolean, isFirstResource: Boolean): Boolean {
+            override fun onResourceReady(resource: GlideDrawable, model: String?, target: Target<GlideDrawable>, isFromMemoryCache: Boolean, isFirstResource: Boolean): Boolean {
                 disposable = Observable.timer(5, TimeUnit.MILLISECONDS).compose(Transformer.switchSchedulers())
                         .subscribe {
                             startActivity(Intent(this@SplashActivity, MainActivity::class.java))

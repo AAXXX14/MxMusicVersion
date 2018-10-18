@@ -6,7 +6,8 @@ package com.lq.mxmusic.reposity.event
 */
 object MusicPlayServiceEvent{
 
-    object MusicPlayServiceChangeStateEvent
-    object MusicPlayServiceDataEvent{
-    }
+    object MusicPlayServiceChangeStateEvent  //service 更新曲目
+    object MusicPlayChangeStateEvent //通知 activity fragment 等进行更新
+    object MusicPlayServiceDataEvent
+
 }
