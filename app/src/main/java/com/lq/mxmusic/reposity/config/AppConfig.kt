@@ -30,6 +30,10 @@ object AppConfig {
     const val NEEDLE_GO_ANIMATION_DURATION = 200.toLong()
     const val ROTATE_ANIMATOR_DURATION = (1000 * 20).toLong()
 
+    const val CURRENT_THEME = "lq_current_theme"
+    const val THEME_DEFAULT = 1001 //默认主题
+    const val THEME_NIGHT = 1002//夜间出题
 
+    /*二维码扫描结果*/
     const val SCAN_REQUEST_CODE = 14
 }

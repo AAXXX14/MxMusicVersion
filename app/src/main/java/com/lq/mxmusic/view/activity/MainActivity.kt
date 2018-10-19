@@ -1,12 +1,15 @@
 package com.lq.mxmusic.view.activity
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
-import android.view.Gravity
-import android.view.Menu
-import android.view.MenuItem
+import android.view.*
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.lq.administrator.mxmusic.R
@@ -16,9 +19,8 @@ import com.lq.mxmusic.view.fragment.FriendFragment
 import com.lq.mxmusic.view.fragment.LocalFragment
 import com.lq.mxmusic.view.fragment.MusicFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import android.support.v7.app.AppCompatDelegate
-import android.view.KeyEvent
 import com.lq.mxmusic.callback.LifeCallBack
+        import com.lq.mxmusic.util.ThemeUtils
 
 
 /*
@@ -26,13 +28,12 @@ import com.lq.mxmusic.callback.LifeCallBack
 *MainActivity by lq
 */
 class MainActivity : BaseActivity() {
-            private var clickTime: Long = 0
+    private var clickTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         forbidShowToolbar()
-        setToolbarColor(R.color.colorPrimary)
         initToolbar()
         initNavigation()
         initViewPager()
@@ -91,15 +92,8 @@ class MainActivity : BaseActivity() {
                     mainDrawerLayout.closeDrawer(Gravity.START)
                 }
                 R.id.menu_mode_switch -> {
-                    val isNight = SharedPreferencesUtil.getDayNightMode()
-                    if (isNight){
-                        delegate.setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                        SharedPreferencesUtil.setDayNightMode(false)
-                    }
-                    else{
-                        delegate.setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                        SharedPreferencesUtil.setDayNightMode(true)
-                    }
+                    showAnimation()
+                    ThemeUtils.changeDayNightTheme(this)
                     recreate()
                 }
                 else -> Log.w("MainActivity", "why you could call this ")
@@ -109,13 +103,52 @@ class MainActivity : BaseActivity() {
         }
     }
 
+
+    /*切换夜间模式的动画    看起来并没有什么效果？*/
+    private fun showAnimation() {
+        val decorView = window.decorView
+        val cacheBitmap = getCacheBitmapFromView(decorView)
+        if (decorView is ViewGroup && cacheBitmap != null) {
+            val view = View(this)
+            view.setBackgroundDrawable(BitmapDrawable(resources, cacheBitmap))
+            val layoutParam = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT)
+            decorView.addView(view, layoutParam)
+            val objectAnimator = ObjectAnimator.ofFloat(view, "alpha", 1f, 0f)
+            objectAnimator.duration = 300
+            objectAnimator.addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    super.onAnimationEnd(animation)
+                    decorView.removeView(view)
+                }
+            })
+            objectAnimator.start()
+        }
+    }
+
+    private fun getCacheBitmapFromView(view: View): Bitmap? {
+        val drawingCacheEnabled = true
+        view.isDrawingCacheEnabled = drawingCacheEnabled
+        view.buildDrawingCache(drawingCacheEnabled)
+        val drawingCache = view.drawingCache
+        val bitmap: Bitmap?
+        if (drawingCache != null) {
+            bitmap = Bitmap.createBitmap(drawingCache)
+            view.isDrawingCacheEnabled = false
+        } else {
+            bitmap = null
+        }
+        return bitmap
+    }
+
+
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (System.currentTimeMillis() - clickTime <= 2 * 1000) {
                 LifeCallBack.finishAll()
-                LifeCallBack.exit()
+                finish()
             } else {
-                ShowUtils.showSuccess(this,"再点击一次返回键退出应用")
+                ShowUtils.showSuccess(this, "再点击一次返回键退出应用")
                 clickTime = System.currentTimeMillis()
                 return true
             }

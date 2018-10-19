@@ -26,8 +26,6 @@ abstract class DoubleClickCallBack : View.OnClickListener{
     }
 
     protected abstract fun onDirectDoubleClick(v: View)
-    protected abstract fun onOnceClick(v: View)
-
     companion object {
         const val MIN_CLICK_DELAY_TIME = 1500
     }

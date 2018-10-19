@@ -28,7 +28,7 @@ object ScanMusicUtils {
                 val music_singer = c.getString(c.getColumnIndex(MediaStore.Audio.Media.ARTIST))
                 val path = c.getString(c.getColumnIndex(MediaStore.Audio.Media.DATA))
                 val length = obtainMusicTime(path)
-                if (length > 15)//音频文件 大于15秒 设定为 歌曲内容
+                if (length > 15)//小于15秒 不算歌曲文件
                     arrayList.add(LocalMusicEntity(0, music_name, music_singer, path, 0, length))
             }
         }

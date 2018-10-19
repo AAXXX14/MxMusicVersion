@@ -5,9 +5,6 @@
         <variable
             name="entity"
             type="com.lq.mxmusic.reposity.entity.LocalMusicEntity"/>
-
-        <import
-            type="com.lq.mxmusic.viewmodel.ClickViewModel"/>
     </data>
 
     <RelativeLayout
@@ -27,7 +24,7 @@
             android:layout_height="wrap_content"
             android:text="@{entity.musicName}"
             android:layout_alignParentLeft="true"
-            android:layout_toRightOf="@id/musicPlayIv"
+            android:layout_toRightOf="@+id/musicPlayIv"
             android:layout_marginRight="8dp"
             android:textColor="@color/contentTextColor" />
 
@@ -36,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{entity.musicSingerName}"
-            android:layout_below="@id/musicNameTv"
+            android:layout_below="@+id/musicNameTv"
             android:textSize="8sp"
             android:layout_toLeftOf="@+id/musicPlayIv"
             android:layout_marginRight="8dp"

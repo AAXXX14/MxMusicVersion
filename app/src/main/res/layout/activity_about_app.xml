@@ -2,22 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:background="?attr/themeBgColor"
+    android:orientation="vertical">
 
     <ImageView
         android:layout_width="360dp"
         android:layout_height="360dp"
-        android:src="@drawable/default_bg"
-        android:scaleType="centerCrop"
         android:layout_gravity="center"
-        android:contentDescription="just look look "/>
+        android:contentDescription="just look look "
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_bg" />
 
-    <Button
+    <TextView
+        android:id="@+id/mTv"
         android:layout_width="88dp"
         android:layout_height="48dp"
         android:layout_gravity="center"
         android:layout_marginTop="36dp"
-        android:text="文本"
-        android:background="@color/colorPrimary" />
+        android:background="@color/colorPrimary"
+        android:textColor="?themeTextColor"
+        android:text="文本" />
 </LinearLayout>

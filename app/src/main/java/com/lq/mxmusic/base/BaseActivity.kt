@@ -14,7 +14,10 @@ import android.view.ViewGroup
 import com.lq.administrator.mxmusic.R
 import com.lq.mxmusic.util.DisplayUtils
 import com.lq.mxmusic.callback.SafeClickCallBack
+import com.lq.mxmusic.reposity.config.AppConfig
 import com.lq.mxmusic.util.ServiceUtil
+import com.lq.mxmusic.util.StatusBarUtil
+import com.lq.mxmusic.util.ThemeUtils
 import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.fragment_base.*
 
@@ -32,10 +35,10 @@ open class BaseActivity : AppCompatActivity() {
     private val loadingView by lazy { layoutInflater.inflate(R.layout.layout_loading_view, null) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        ThemeUtils.setTheme(this)
         super.setContentView(R.layout.activity_base)
         mContentView = findViewById(android.R.id.content)
         provider = ViewModelProviders.of(this)
-        setStatusColor(R.color.colorPrimary)
         DisplayUtils.setCustomDensity(this, App.instance)
         setToolbar(baseActivityToolbar)
         initData()
@@ -93,6 +96,11 @@ open class BaseActivity : AppCompatActivity() {
         parameters.bottomMargin =0
     }
 
+    protected  fun showBottomTop(){
+        val parameters =container.layoutParams as ViewGroup.MarginLayoutParams
+        parameters.bottomMargin =0
+    }
+
     /**
      * 失败后点击刷新
      */
@@ -111,13 +119,7 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     protected fun setStatusColor(colorPrimary: Int) {
-//        StatusBarUtil.setColor(this, colorPrimary, 0)
-        if (Build.VERSION.SDK_INT >= 21) {
-            val decorView = window.decorView
-            val option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            decorView.systemUiVisibility = option
-            window.statusBarColor = ContextCompat.getColor(this, colorPrimary)
-        }
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this,colorPrimary), 0)
     }
 
     protected fun setTitleText(title: Int) {

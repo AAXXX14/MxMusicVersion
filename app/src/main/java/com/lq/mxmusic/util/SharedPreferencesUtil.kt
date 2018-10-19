@@ -59,13 +59,15 @@ object SharedPreferencesUtil {
         return sharedPreferences.getInt(AppConfig.MUSIC_CURRENT_PLAY_POSITION, 0)
     }
 
-    //夜间模式
-    fun setDayNightMode(isDay: Boolean) {
-        sharedPreferences.edit().putBoolean(AppConfig.APP_DAY_NIGHT_MODE, isDay).apply()
+    //存储当前主题
+   fun setCurrentTheme(theme:Int){
+        sharedPreferences.edit().putInt(AppConfig.CURRENT_THEME,theme).apply()
     }
 
-    fun getDayNightMode(): Boolean {
-        return sharedPreferences.getBoolean(AppConfig.APP_DAY_NIGHT_MODE, false)
+    fun getCurrentTheme() :Int{
+        return sharedPreferences.getInt(AppConfig.CURRENT_THEME,AppConfig.THEME_DEFAULT)
     }
+
+
 
 }

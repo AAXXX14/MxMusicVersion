@@ -12,7 +12,7 @@ import java.util.*
 object LifeCallBack : Application.ActivityLifecycleCallbacks {
     private val activities = LinkedList<Activity>()
     fun add(activity: Activity) = activities.add(activity)
-    private fun remove(activity: Activity) = activities.remove(activity)
+    fun remove(activity: Activity) = activities.remove(activity)
     fun finishAll() {
         activities.filter { activity ->
             !activity.isFinishing

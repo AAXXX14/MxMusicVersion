@@ -5,7 +5,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bottomSheetNormalBackground"
+        android:background="?attr/contentBgColor"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -16,28 +16,26 @@
             <android.support.v4.view.ViewPager
                 android:id="@+id/bottomContainerViewPager"
                 android:layout_width="0dp"
-                android:layout_weight="6"
-                android:layout_height="43dp" />
+                android:layout_height="45dp"
+                android:layout_weight="6" />
 
             <ImageView
                 android:id="@+id/controlIv"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:layout_marginRight="6dp"
-                android:src="@drawable/icon_play"
                 android:layout_gravity="center_vertical"
+                android:layout_marginRight="6dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                />
+                android:src="@drawable/icon_play" />
 
             <ImageView
                 android:id="@+id/playListIv"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:layout_marginRight="6dp"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/titlebar_menu"
+                android:layout_marginRight="6dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                />
+                android:src="@drawable/titlebar_menu" />
 
         </LinearLayout>
 

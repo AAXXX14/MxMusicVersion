@@ -8,4 +8,10 @@
         <attr name="load_fail_view" format="reference"/>
         <attr name="internet_error" format="reference"/>
     </declare-styleable>
+
+    <attr name="themeTextColor" format="color"/>
+    <attr name="themeBgColor" format="color"/>
+    <attr name="titleColor" format="color"/>
+    <attr name="contentBgColor" format="color"/>
+
 </resources>

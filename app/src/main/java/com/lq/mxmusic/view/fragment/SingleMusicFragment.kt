@@ -49,15 +49,11 @@ class SingleMusicFragment : BaseFragment() {
         singleRv.adapter = adapter
         if (all.isEmpty()) showEmpty()
         adapter.setOnItemChildClickListener { _, view, position ->
-            PlayUtils.preparePlay(view.context, position, AppConfig.PLAY_LOCAL, mList)
-            view.setOnClickListener(object : DoubleClickCallBack() {
+            PlayUtils.preparePlay(view.context,position,AppConfig.PLAY_LOCAL,mList)
+            view.setOnClickListener(object:DoubleClickCallBack(){
                 override fun onDirectDoubleClick(v: View) {
-                    //连续双击
                     v.context.startActivity(Intent(v.context, MusicPlayActivity::class.java)
                             .putExtra(AppConfig.PLAY_ENTITY, mList[position]).putExtra(AppConfig.PLAY_SOURCE, AppConfig.PLAY_LOCAL))
-                }
-
-                override fun onOnceClick(v: View) {
                 }
             })
         }
@@ -67,6 +63,7 @@ class SingleMusicFragment : BaseFragment() {
     override fun retry() {
         showLoading()
         val list = ScanMusicUtils.query(App.instance)
+        //todo bug question one
         AppDataBase.instance.localMusicDao().insertAll(list)
         SharedPreferencesUtil.setLocalMusicNumber(list.size)
         mList.addAll(list)

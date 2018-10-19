@@ -89,18 +89,11 @@ abstract class BaseFragment : Fragment() {
 
     private fun onInvisible() {}
 
-    /**
-     * 显示时加载数据,需要这样的使用
-     * 注意声明 isPrepared，先初始化
-     * 生命周期会先执行 setUserVisibleHint 再执行onActivityCreated
-     * 在 onActivityCreated 之后第一次显示加载数据，只加载一次
-     */
     protected open fun loadData() {}
 
     protected open fun retry(){}
 
     private fun onVisible() = loadData()
-
 
     abstract fun setContent(): Int
 

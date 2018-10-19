@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_alignParentBottom="true"
-    android:background="@color/bottomSheetNormalBackground"
+    android:background="?attr/contentBgColor"
     android:orientation="vertical">
 
     <LinearLayout
@@ -40,6 +40,7 @@
                 android:singleLine="true"
                 android:text="给少年的歌"
                 android:focusable="true"
+                android:textColor="?attr/themeTextColor"
                 android:layout_marginTop="2dp"
                 android:textSize="12dp" />
 
@@ -49,6 +50,7 @@
                 android:layout_height="16dp"
                 android:ellipsize="end"
                 android:maxLength="20"
+                android:textColor="?attr/themeTextColor"
                 android:maxLines="1"
                 android:text="程璧"
                 android:textSize="9dp" />

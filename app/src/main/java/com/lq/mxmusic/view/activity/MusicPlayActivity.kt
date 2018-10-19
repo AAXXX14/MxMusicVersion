@@ -58,7 +58,7 @@ class MusicPlayActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_music_play)
         setFitSystem(false)
-        setStatusColor(R.color.transparent)
+//        setStatusColor(R.color.transparent)
         setToolbarColor(R.color.transparent)
         //设置副标题主标题
         forbidShowToolbar()

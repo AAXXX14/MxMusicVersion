@@ -307,5 +307,7 @@
 
     <color name="color_text_value">#000</color>
     <color name="color_text_key">#181717</color>
-
+    <color name="night_bg_color">#3f3f3f</color>
+    <color name="night_text_color">#8A9599</color>
+    <color name="night_title_color">#8A9599</color>
 </resources>

@@ -8,8 +8,6 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">@android:color/white</item>
         <item name="android:windowAnimationStyle">@style/DefaultActivitySwitchAnimation</item>
-
-
     </style>
 
     <style name="DefaultActivitySwitchAnimation">
@@ -21,16 +19,24 @@
 
 
 
-    <!--白天主题-->
-    <style name="DayTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <!--白天主题  默认主题-->
+    <style name="DayTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="themeTextColor">@color/black</item>
+        <item name="themeBgColor">@color/colorPrimary</item>
+        <item name="titleColor">@color/white</item>
+        <item name="contentBgColor">@color/white</item>
     </style>
 
     <!--夜间主题-->
-    <style name="NightTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimaryDark</item>
+    <style name="NightTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/night_title_color</item>
         <item name="colorPrimaryDark">@color/black</item>
+        <item name="themeTextColor">@color/night_text_color</item>
+        <item name="themeBgColor">@color/night_bg_color</item>
+        <item name="titleColor">@color/night_title_color</item>
+        <item name="contentBgColor">@color/night_bg_color</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">

@@ -30,12 +30,6 @@ class LocalFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initListener()
-        //删除该表下所有数据
-        val mList = ArrayList<NearlyMusicEntity>()
-        mList.addAll(AppDataBase.instance.nearlyMusicDao().queryAll())
-        val size = mList.size
-        val number = AppDataBase.instance.nearlyMusicDao().deleteAll(mList)
-        LogUtil.i("Number", "size:$size number:$number")
         initData()
     }
 
@@ -69,7 +63,6 @@ class LocalFragment : BaseFragment() {
             val localNumber = AppDataBase.instance.localMusicDao().queryAll().size//本地数量
             val nearlyNumber = AppDataBase.instance.nearlyMusicDao().queryAll().size//最近播放数量
             val currentNumber = AppDataBase.instance.currentPlayDao().queryAll().size//当前播放 歌单数量
-            ShowUtils.showInfo(context!!,"$currentNumber")
             val downloadNumber = SharedPreferencesUtil.getDownLoadNumber()//下载管理数量
             localNumTv.text = "($localNumber)"
             nearlyNumTv.text = "($nearlyNumber)"
