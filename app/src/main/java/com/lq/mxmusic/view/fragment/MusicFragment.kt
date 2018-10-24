@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
-import com.lq.administrator.mxmusic.R
+import com.lq.mxmusic.R
 import com.lq.mxmusic.base.BaseFragment
 import com.lq.mxmusic.view.adapter.FragmentViewPagerAdapter
 import com.lq.mxmusic.view.widget.StatusRecyclerView

@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
-import com.lq.administrator.mxmusic.R
+import com.lq.mxmusic.R
 import com.lq.mxmusic.util.DataBindingComponentUtil
 import com.lq.mxmusic.callback.SafeClickCallBack
 import kotlinx.android.synthetic.main.fragment_base.*

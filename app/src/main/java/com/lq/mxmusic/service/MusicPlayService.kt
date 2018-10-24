@@ -163,11 +163,11 @@ class MusicPlayService : Service() {
             } else {
                 val entity = AppDataBase.instance.nearlyMusicDao().queryByPath(path!!)
                 if (entity != null) { //先删除 再添加 将本条目 置顶
-//                    AppDataBase.instance.nearlyMusicDao().deleteMusic(entity)
+                    AppDataBase.instance.nearlyMusicDao().deleteMusic(entity)
                 }
                 val data = musicInfoList[current]
-                val nearlyEntity = NearlyMusicEntity(data.id, data.musicName, data.musicSingerName, data.musicPath, data.musicProgress, data.musicLength)
-//                AppDataBase.instance.nearlyMusicDao().insertMusic(nearlyEntity)
+                val nearlyEntity = NearlyMusicEntity(data.id, data.musicName, data.musicSingerName, data.musicPath, data.musicProgress, data.musicLength,"")
+                AppDataBase.instance.nearlyMusicDao().insertMusic(nearlyEntity)
             }
         }
     }

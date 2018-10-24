@@ -1,4 +1,4 @@
-package com.lq.administrator.mxmusic
+package com.lq.mxmusic
 
 import org.junit.Test
 

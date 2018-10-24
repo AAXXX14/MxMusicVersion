@@ -7,7 +7,7 @@ import android.graphics.Rect
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import com.lq.administrator.mxmusic.R
+import com.lq.mxmusic.R
 
 /*
 *2018/10/18 0018  15:18

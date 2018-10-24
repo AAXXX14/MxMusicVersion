@@ -2,7 +2,7 @@ package com.lq.mxmusic.util
 
 import android.app.Activity
 import android.support.v4.content.ContextCompat
-import com.lq.administrator.mxmusic.R
+import com.lq.mxmusic.R
 import com.lq.mxmusic.reposity.config.AppConfig
 
 /*
@@ -18,7 +18,7 @@ object ThemeUtils {
             AppConfig.THEME_DEFAULT -> {
                 activity.setTheme(R.style.DayTheme)
                 SharedPreferencesUtil.setCurrentTheme(AppConfig.THEME_DEFAULT)
-                StatusBarUtil.setColor(activity, ContextCompat.getColor(activity,R.color.colorPrimary), 0)
+                StatusBarUtil.setColor(activity, ContextCompat.getColor(activity,R.color.transparent), 0)
             }
             AppConfig.THEME_NIGHT -> {
                 activity.setTheme(R.style.NightTheme)

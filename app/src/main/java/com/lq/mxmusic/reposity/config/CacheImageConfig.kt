@@ -1,6 +1,6 @@
 package com.lq.mxmusic.reposity.config
 
-import com.lq.administrator.mxmusic.R
+import com.lq.mxmusic.R
 
 /*
 *2018/10/8 0008  15:51

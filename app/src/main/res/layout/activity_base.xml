@@ -47,9 +47,6 @@
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
-
-
-
     <!--底部播放fragment-->
     <LinearLayout
         android:id="@+id/containerBottomLL"

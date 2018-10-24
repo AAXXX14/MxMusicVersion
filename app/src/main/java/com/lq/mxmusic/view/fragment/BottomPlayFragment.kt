@@ -3,7 +3,7 @@ package com.lq.mxmusic.view.fragment
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.view.View
-import com.lq.administrator.mxmusic.R
+import com.lq.mxmusic.R
 import com.lq.mxmusic.base.BaseFragment
 import com.lq.mxmusic.reposity.config.AppConfig
 import com.lq.mxmusic.reposity.config.PlayConfig

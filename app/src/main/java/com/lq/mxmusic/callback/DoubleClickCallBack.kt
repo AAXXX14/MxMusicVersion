@@ -17,12 +17,14 @@ abstract class DoubleClickCallBack : View.OnClickListener{
         if (id != mId) {
             id = mId
             lastClickTime = currentTime
+            return
         }
         if (currentTime - lastClickTime < MIN_CLICK_DELAY_TIME) {
             //连续双击事件
             lastClickTime = currentTime
             onDirectDoubleClick(v)
         }
+        lastClickTime = currentTime
     }
 
     protected abstract fun onDirectDoubleClick(v: View)

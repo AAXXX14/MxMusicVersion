@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import com.lq.administrator.mxmusic.R
+import com.lq.mxmusic.R
 import com.lq.mxmusic.base.BaseFragment
 import com.lq.mxmusic.reposity.database.AppDataBase
 import com.lq.mxmusic.reposity.entity.NearlyMusicEntity
@@ -38,11 +38,20 @@ class LocalFragment : BaseFragment() {
     }
 
     private fun obtainLocalData() {
-        val localNumber = SharedPreferencesUtil.getLocalMusicNumber()//本地数量
-        val nearlyNumber = SharedPreferencesUtil.getNearlyMusicPlayNumber()//最近播放数量
+        val localNumber = AppDataBase.instance.localMusicDao().queryAll().size//本地数量
+        val nearlyNumber = AppDataBase.instance.nearlyMusicDao().queryAll().size//最近播放数量
+        val currentNumber = AppDataBase.instance.currentPlayDao().queryAll().size//当前播放 歌单数量
         val downloadNumber = SharedPreferencesUtil.getDownLoadNumber()//下载管理数量
         localNumTv.text = "($localNumber)"
         nearlyNumTv.text = "($nearlyNumber)"
+        SharedPreferencesUtil.setLocalMusicNumber(localNumber)
+        SharedPreferencesUtil.setNearlyMusicPlayNumber(nearlyNumber)
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        obtainLocalData()
     }
 
     private fun initListener() {

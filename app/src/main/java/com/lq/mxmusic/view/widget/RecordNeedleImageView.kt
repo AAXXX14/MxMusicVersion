@@ -4,7 +4,7 @@ import android.content.Context
 import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
 import android.widget.ImageView
-import com.lq.administrator.mxmusic.R
+import com.lq.mxmusic.R
 
 
 /**

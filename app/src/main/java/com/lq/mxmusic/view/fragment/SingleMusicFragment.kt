@@ -1,21 +1,17 @@
 package com.lq.mxmusic.view.fragment
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import com.lq.administrator.mxmusic.R
+import com.lq.mxmusic.R
 import com.lq.mxmusic.base.App
 import com.lq.mxmusic.base.BaseFragment
-import com.lq.mxmusic.callback.DoubleClickCallBack
 import com.lq.mxmusic.reposity.config.AppConfig
-import com.lq.mxmusic.reposity.config.PlayConfig
 import com.lq.mxmusic.reposity.database.AppDataBase
 import com.lq.mxmusic.reposity.entity.LocalMusicEntity
 import com.lq.mxmusic.util.PlayUtils
 import com.lq.mxmusic.util.ScanMusicUtils
-import com.lq.mxmusic.view.activity.MusicPlayActivity
 import com.lq.mxmusic.view.adapter.MusicRecyclerAdapter
 import com.lq.mxmusic.view.widget.MusicSlideToolBar
+import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.fragment_single_music.*
 
 /*
@@ -35,6 +31,8 @@ class SingleMusicFragment : BaseFragment() {
         initData()
     }
 
+
+
     private fun initData() {
         slideToolBar.setTextView(sortLetterTv)
         slideToolBar.setTouchingTextChangeListener(object : MusicSlideToolBar.OnTouchingTextChangedListener {
@@ -50,24 +48,25 @@ class SingleMusicFragment : BaseFragment() {
         if (all.isEmpty()) showEmpty()
         adapter.setOnItemChildClickListener { _, view, position ->
             PlayUtils.preparePlay(view.context,position,AppConfig.PLAY_LOCAL,mList)
-            view.setOnClickListener(object:DoubleClickCallBack(){
-                override fun onDirectDoubleClick(v: View) {
-                    v.context.startActivity(Intent(v.context, MusicPlayActivity::class.java)
-                            .putExtra(AppConfig.PLAY_ENTITY, mList[position]).putExtra(AppConfig.PLAY_SOURCE, AppConfig.PLAY_LOCAL))
-                }
-            })
         }
     }
+
+
 
     //空数据 搜索
     override fun retry() {
         showLoading()
-        val list = ScanMusicUtils.query(App.instance)
-        //todo bug question one
-        AppDataBase.instance.localMusicDao().insertAll(list)
-        SharedPreferencesUtil.setLocalMusicNumber(list.size)
-        mList.addAll(list)
-        adapter.notifyDataSetChanged()
+        val disposable = RxPermissions(this).request(android.Manifest.permission.READ_EXTERNAL_STORAGE).subscribe {
+            if(it){
+                val list = ScanMusicUtils.query(App.instance)
+                AppDataBase.instance.localMusicDao().insertAll(list)
+                SharedPreferencesUtil.setLocalMusicNumber(list.size)
+                mList.addAll(list)
+                adapter.notifyDataSetChanged()
+            }
+            else ShowUtils.showInfo(App.instance,"未开启读取权限,请在设置中打开")
+        }
+        disposable.dispose()
         showContent()
     }
 

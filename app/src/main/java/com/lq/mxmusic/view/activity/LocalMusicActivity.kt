@@ -5,10 +5,11 @@ import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.view.Menu
-import com.lq.administrator.mxmusic.R
+import com.lq.mxmusic.R
 import com.lq.mxmusic.base.BaseActivity
 import com.lq.mxmusic.view.adapter.FragmentViewPagerAdapter
 import com.lq.mxmusic.view.fragment.SingleMusicFragment
+import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.activity_local_music.*
 
 /*
@@ -50,6 +51,7 @@ class LocalMusicActivity :BaseActivity(){
     }
 
     private fun initData(){
+
         val mList = ArrayList<Fragment>()
         val adapter = FragmentViewPagerAdapter(supportFragmentManager)
         mList.add(SingleMusicFragment())

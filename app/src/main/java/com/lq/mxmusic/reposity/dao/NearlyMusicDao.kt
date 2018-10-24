@@ -27,7 +27,7 @@ interface NearlyMusicDao {
     @Query("select * from NearlyMusicEntity where musicPath= :path")
     fun queryByPath(path: String): NearlyMusicEntity?
 
-    @Query("select * from LocalMusicEntity")
+    @Query("select * from NearlyMusicEntity")
     fun queryAll(): List<NearlyMusicEntity>
 
 }

@@ -1,10 +1,8 @@
 package com.lq.mxmusic.view.fragment
 
 import android.os.Bundle
-import com.lq.administrator.mxmusic.R
+import com.lq.mxmusic.R
 import com.lq.mxmusic.base.BaseFragment
-import com.lq.mxmusic.view.widget.RippleAnimation
-import kotlinx.android.synthetic.main.fragment_radio.*
 
 /*
 *2018/10/10 0010  10:51

@@ -1,6 +1,6 @@
 package com.lq.mxmusic.view.fragment
 
-import com.lq.administrator.mxmusic.R
+import com.lq.mxmusic.R
 import com.lq.mxmusic.base.BaseFragment
 
 /*

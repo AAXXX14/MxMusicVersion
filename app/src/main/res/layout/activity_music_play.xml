@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <!--高斯背景图-->
-    <ImageView
+    <com.lq.mxmusic.view.widget.RecordNeedleImageView
         android:id="@+id/playBgIv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -13,9 +13,9 @@
         android:scaleType="centerCrop"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:fitsSystemWindows="true"
+        android:orientation="vertical"
         android:layout_height="400dp">
 
         <!--头-->
@@ -61,22 +61,30 @@
                 android:layout_alignParentBottom="true"/>
         </RelativeLayout>
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/playViewPager"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_below="@+id/playTitleRl"/>
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:id="@+id/disc_relativeLayout"
+            android:layout_height="match_parent">
 
-        <!--指针-->
-        <ImageView
-            android:id="@+id/ivNeedle"
-            android:layout_width="183dp"
-            android:layout_height="129dp"
-            android:src="@drawable/ic_needle"
-            android:layout_marginLeft="158dp"
-            android:layout_marginTop="38dp"/>
-    </RelativeLayout>
+            <!--实现切换-->
+            <android.support.v4.view.ViewPager
+                android:id="@+id/playViewPager"
+                android:layout_width="match_parent"
+                android:clickable="false"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"/>
+
+            <!--唱针-->
+            <com.lq.mxmusic.view.widget.RecordNeedleImageView
+                android:id="@+id/ivNeedle"
+                android:layout_width="183dp"
+                android:layout_height="129dp"
+                android:src="@drawable/ic_needle"
+                android:layout_marginLeft="128dp"/>
+
+        </RelativeLayout>
+    </LinearLayout>
 
 
 </RelativeLayout>

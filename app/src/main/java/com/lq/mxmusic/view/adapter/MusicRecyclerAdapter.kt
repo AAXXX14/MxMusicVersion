@@ -5,8 +5,8 @@ import android.view.View
 import android.widget.RelativeLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.lq.administrator.mxmusic.R
-import com.lq.administrator.mxmusic.databinding.MusicRecyclerItemBinding
+import com.lq.mxmusic.R
+import com.lq.mxmusic.databinding.MusicRecyclerItemBinding
 import com.lq.mxmusic.callback.DoubleClickCallBack
 import com.lq.mxmusic.reposity.entity.LocalMusicEntity
 

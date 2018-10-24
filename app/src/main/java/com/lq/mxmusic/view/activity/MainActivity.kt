@@ -12,7 +12,7 @@ import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.lq.administrator.mxmusic.R
+import com.lq.mxmusic.R
 import com.lq.mxmusic.base.BaseActivity
 import com.lq.mxmusic.view.adapter.FragmentViewPagerAdapter
 import com.lq.mxmusic.view.fragment.FriendFragment

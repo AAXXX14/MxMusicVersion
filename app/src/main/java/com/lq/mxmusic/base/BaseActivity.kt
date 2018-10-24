@@ -11,7 +11,7 @@ import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.lq.administrator.mxmusic.R
+import com.lq.mxmusic.R
 import com.lq.mxmusic.util.DisplayUtils
 import com.lq.mxmusic.callback.SafeClickCallBack
 import com.lq.mxmusic.reposity.config.AppConfig
@@ -92,13 +92,13 @@ open class BaseActivity : AppCompatActivity() {
 
     protected fun forbidShowBottom() {
         containerBottomLL.visibility = View.GONE
-        val parameters =container.layoutParams as ViewGroup.MarginLayoutParams
-        parameters.bottomMargin =0
+        val parameters = container.layoutParams as ViewGroup.MarginLayoutParams
+        parameters.bottomMargin = 0
     }
 
-    protected  fun showBottomTop(){
-        val parameters =container.layoutParams as ViewGroup.MarginLayoutParams
-        parameters.bottomMargin =0
+    protected fun showBottomTop() {
+        val parameters = container.layoutParams as ViewGroup.MarginLayoutParams
+        parameters.bottomMargin = 0
     }
 
     /**
@@ -119,7 +119,7 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     protected fun setStatusColor(colorPrimary: Int) {
-        StatusBarUtil.setColor(this, ContextCompat.getColor(this,colorPrimary), 0)
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this, colorPrimary), 255)
     }
 
     protected fun setTitleText(title: Int) {

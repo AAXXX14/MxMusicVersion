@@ -2,22 +2,21 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/contentBgColor"
-        android:orientation="horizontal">
+
 
         <LinearLayout
+            android:id="@+id/mLL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?attr/contentBgColor"
             android:orientation="horizontal">
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/bottomContainerViewPager"
-                android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:layout_weight="6" />
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/bottomContainerViewPager"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_weight="6" />
+
 
             <ImageView
                 android:id="@+id/controlIv"
@@ -39,5 +38,5 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+
 </layout>

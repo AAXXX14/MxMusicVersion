@@ -1,7 +1,7 @@
 package com.lq.mxmusic.view.activity
 
 import android.os.Bundle
-import com.lq.administrator.mxmusic.R
+import com.lq.mxmusic.R
 import com.lq.mxmusic.base.BaseActivity
 import com.lq.mxmusic.reposity.config.AppConfig
 import kotlinx.android.synthetic.main.activity_about_app.*

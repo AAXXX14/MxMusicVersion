@@ -9,7 +9,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
-import com.lq.administrator.mxmusic.R
+import com.lq.mxmusic.R
 
 /*
 *2018/10/10 0010  14:34

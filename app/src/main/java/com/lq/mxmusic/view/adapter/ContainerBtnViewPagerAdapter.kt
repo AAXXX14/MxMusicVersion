@@ -1,5 +1,6 @@
 package com.lq.mxmusic.view.adapter
 
+import android.content.Intent
 import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +9,10 @@ import android.widget.ImageView
 import android.widget.TextView
 
 import com.bumptech.glide.Glide
-import com.lq.administrator.mxmusic.R
+import com.lq.mxmusic.R
+import com.lq.mxmusic.callback.SafeClickCallBack
 import com.lq.mxmusic.reposity.entity.LocalMusicEntity
+import com.lq.mxmusic.view.activity.MusicPlayActivity
 
 import java.util.ArrayList
 
@@ -52,6 +55,11 @@ class ContainerBtnViewPagerAdapter : PagerAdapter() {
         playbar_infoTv.text = musicDataBean.musicName
         Glide.with(container.context).load(R.drawable.default_bg).error(R.drawable.placeholder_disk_210).into(playbar_img)
         container.addView(view)
+        view.setOnClickListener(object: SafeClickCallBack(){
+            override fun onNoDoubleClick(v: View) {
+                v.context.startActivity(Intent(v.context, MusicPlayActivity::class.java))
+            }
+        })
         return view
     }
 }

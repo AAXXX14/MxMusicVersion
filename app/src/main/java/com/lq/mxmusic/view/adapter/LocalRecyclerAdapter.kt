@@ -2,7 +2,7 @@ package com.lq.mxmusic.view.adapter
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.lq.administrator.mxmusic.R
+import com.lq.mxmusic.R
 
 /*
 *2018/10/9 0009  18:41

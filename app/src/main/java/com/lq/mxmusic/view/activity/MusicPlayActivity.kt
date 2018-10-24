@@ -8,14 +8,12 @@ import android.view.animation.AccelerateInterpolator
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import android.view.animation.RotateAnimation
-import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.lq.administrator.mxmusic.R
+import com.lq.mxmusic.R
 import com.lq.mxmusic.base.BaseActivity
 import com.lq.mxmusic.reposity.config.AppConfig
 import com.lq.mxmusic.reposity.config.AppConfig.NEEDLE_BACK_ANIMATOR_DURATION
 import com.lq.mxmusic.reposity.config.AppConfig.NEEDLE_GO_ANIMATION_DURATION
-import com.lq.mxmusic.reposity.config.AppConfig.ROTATE_ANIMATOR_DURATION
 import com.lq.mxmusic.reposity.config.PlayConfig
 import com.lq.mxmusic.reposity.entity.CurrentMusicEntity
 import com.lq.mxmusic.reposity.entity.LocalMusicEntity
@@ -35,6 +33,7 @@ import org.greenrobot.eventbus.ThreadMode
 */
 class MusicPlayActivity : BaseActivity() {
     private val playList = ArrayList<String>()//当前播放的列表  的 图片
+    private val adapter = PlayDiscViewPagerAdapter(playList)
     private val musicAllList = ArrayList<CurrentMusicEntity>()//全部播放列表
     private var mDiscAnimator: ObjectAnimator? = null
     private val mNeedleBackAnimation by lazy {
@@ -57,12 +56,7 @@ class MusicPlayActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_music_play)
-        setFitSystem(false)
-//        setStatusColor(R.color.transparent)
-        setToolbarColor(R.color.transparent)
-        //设置副标题主标题
-        forbidShowToolbar()
-        forbidShowBottom()
+
         initData()
         initListener()
         EventBus.getDefault().register(this)
@@ -102,30 +96,35 @@ class MusicPlayActivity : BaseActivity() {
 
     /*开始唱片旋转动画*/
     private fun startRecordRotation() {
-        val mView = playViewPager.rootView.findViewById<ImageView>(R.id.ivDisc)
-        mDiscAnimator = ObjectAnimator.ofFloat(mView, "rotation", 0f, 360f).apply {
-            duration = ROTATE_ANIMATOR_DURATION
-            interpolator = LinearInterpolator()
-            repeatCount = Animation.INFINITE
-            start()
-        }
+        val animator = adapter.mAnimationList[playViewPager.currentItem]
+        animator.start()
     }
 
     /*停止唱片旋转动画*/
     private fun stopRecordRotation() {
-        mDiscAnimator?.cancel()
+        val animator = adapter.mAnimationList[playViewPager.currentItem]
+        animator.cancel()
     }
 
     private fun initData() {
+        setFitSystem(false)
+        setStatusColor(R.color.transparent)
+        setToolbarColor(R.color.transparent)
+        //设置副标题主标题
+        forbidShowToolbar()
+        forbidShowBottom()
+        playViewPager.adapter = adapter
         val playSource = intent.getIntExtra(AppConfig.PLAY_SOURCE, 1)//默认是本地的
         when (playSource) {
             AppConfig.PLAY_LOCAL -> {//本地播放
                 val entity = intent.getParcelableExtra<LocalMusicEntity>(AppConfig.PLAY_ENTITY)
                 //todo 标识当前播放列表为 本地播放
-                val playName = entity.musicName
-                val singerName = entity.musicSingerName
-                playNameTv.text = playName
-                singerNameTv.text = singerName
+                if (entity != null) {
+                    val playName = entity.musicName
+                    val singerName = entity.musicSingerName
+                    playNameTv.text = playName
+                    singerNameTv.text = singerName
+                }
                 //todo 通知播放
             }
         }
@@ -136,7 +135,7 @@ class MusicPlayActivity : BaseActivity() {
         playList.add("")
         playList.add("")
         playList.add("")
-        playViewPager.adapter = PlayDiscViewPagerAdapter(playList)
+        adapter.notifyDataSetChanged()
         Glide.with(this).load(R.drawable.default_bg).bitmapTransform(BlurTransformation(this, 25, 8)).into(playBgIv)
     }
 
@@ -150,9 +149,10 @@ class MusicPlayActivity : BaseActivity() {
             override fun onPageScrollStateChanged(state: Int) {
                 //页面状态改变。当按下时不需要改变，滑动动画完成时不需要改变，但触摸离开屏幕时要清除动画
                 when (state) {
-                    ViewPager.SCROLL_STATE_IDLE -> {}//滑动动画完成时启用的方法
-                    ViewPager.SCROLL_STATE_SETTLING -> startNeedleAnimation()//离开屏幕时启用
-                    ViewPager.SCROLL_STATE_DRAGGING -> stopNeedleAnimation()//按住屏幕开始拖拽时启用
+                    ViewPager.SCROLL_STATE_IDLE -> {
+                    }//滑动动画完成时启用的方法
+                    ViewPager.SCROLL_STATE_SETTLING -> stopNeedleAnimation()//离开屏幕时启用
+                    ViewPager.SCROLL_STATE_DRAGGING -> startNeedleAnimation()//按住屏幕开始拖拽时启用
                 }
             }
 

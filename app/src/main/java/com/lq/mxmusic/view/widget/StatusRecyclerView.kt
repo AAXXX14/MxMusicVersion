@@ -7,7 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RelativeLayout
-import com.lq.administrator.mxmusic.R
+import com.lq.mxmusic.R
 import kotlinx.android.synthetic.main.state_recyclerview.view.*
 import android.view.ViewGroup
 

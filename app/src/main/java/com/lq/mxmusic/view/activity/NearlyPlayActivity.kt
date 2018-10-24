@@ -2,10 +2,12 @@ package com.lq.mxmusic.view.activity
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import com.lq.administrator.mxmusic.R
+import com.lq.mxmusic.R
 import com.lq.mxmusic.base.BaseActivity
+import com.lq.mxmusic.reposity.config.AppConfig
 import com.lq.mxmusic.reposity.database.AppDataBase
 import com.lq.mxmusic.reposity.entity.NearlyMusicEntity
+import com.lq.mxmusic.util.PlayUtils
 import com.lq.mxmusic.view.adapter.NearlyRecyclerAdapter
 import kotlinx.android.synthetic.main.activity_nearly.*
 
@@ -28,5 +30,8 @@ class NearlyPlayActivity:BaseActivity(){
         val adapter = NearlyRecyclerAdapter(mList)
         nearlyRv.setLayoutManager(LinearLayoutManager(this))
         nearlyRv.setAdapter(adapter)
+        adapter.setOnItemChildClickListener { _, view, position ->
+//            PlayUtils.preparePlay(view.context,position, AppConfig.PLAY_LOCAL,mList)
+        }
     }
 }

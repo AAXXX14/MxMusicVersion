@@ -1,7 +1,7 @@
 package com.lq.mxmusic.view.fragment
 
 import android.os.Bundle
-import com.lq.administrator.mxmusic.R
+import com.lq.mxmusic.R
 import com.lq.mxmusic.base.BaseFragment
 
 /*

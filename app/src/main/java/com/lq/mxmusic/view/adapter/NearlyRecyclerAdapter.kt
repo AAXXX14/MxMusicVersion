@@ -3,9 +3,8 @@ package com.lq.mxmusic.view.adapter
 import android.databinding.DataBindingUtil
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.lq.administrator.mxmusic.R
-import com.lq.administrator.mxmusic.databinding.MusicRecyclerItemBinding
-import com.lq.administrator.mxmusic.databinding.NearlyRecyclerItemBinding
+import com.lq.mxmusic.R
+import com.lq.mxmusic.databinding.NearlyRecyclerItemBinding
 import com.lq.mxmusic.reposity.entity.NearlyMusicEntity
 
 /*
