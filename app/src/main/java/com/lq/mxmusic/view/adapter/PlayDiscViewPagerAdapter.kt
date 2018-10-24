@@ -25,7 +25,8 @@ class PlayDiscViewPagerAdapter(private val mDiscLayouts: List<String>) : PagerAd
         val discLayout = LayoutInflater.from(container.context).inflate(R.layout.layout_disc, null)
         val iv = discLayout.findViewById<ImageView>(R.id.ivDisc)
         Glide.with(container.context).load(mDiscLayouts[position]).error(R.drawable.default_bg).into(iv)
-        mAnimationList.add(getAnimation(iv))
+        val animator = getAnimation(iv)
+        mAnimationList.add(animator)
         container.addView(discLayout)
         return discLayout
     }
@@ -45,9 +46,9 @@ class PlayDiscViewPagerAdapter(private val mDiscLayouts: List<String>) : PagerAd
     //设置动画旋转
     private fun getAnimation(mImageView: View): ObjectAnimator {
         mDiscAnimator = ObjectAnimator.ofFloat(mImageView, "rotation", 0f, 360f)
-        mDiscAnimator?.duration = ROTATE_ANIMATOR_DURATION
-        mDiscAnimator?.interpolator = LinearInterpolator()
-        mDiscAnimator?.repeatCount = Animation.INFINITE
-        return mDiscAnimator!!
+        mDiscAnimator.duration = ROTATE_ANIMATOR_DURATION
+        mDiscAnimator.interpolator = LinearInterpolator()
+        mDiscAnimator.repeatCount = Animation.INFINITE
+        return mDiscAnimator
     }
 }

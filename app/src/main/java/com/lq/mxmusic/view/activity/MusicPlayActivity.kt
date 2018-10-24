@@ -35,7 +35,6 @@ class MusicPlayActivity : BaseActivity() {
     private val playList = ArrayList<String>()//当前播放的列表  的 图片
     private val adapter = PlayDiscViewPagerAdapter(playList)
     private val musicAllList = ArrayList<CurrentMusicEntity>()//全部播放列表
-    private var mDiscAnimator: ObjectAnimator? = null
     private val mNeedleBackAnimation by lazy {
         //指针 返回 动画
         RotateAnimation(-20f, 0f, Animation.RELATIVE_TO_SELF, 0.33f, Animation.RELATIVE_TO_SELF, 0.13f).apply {
@@ -96,14 +95,18 @@ class MusicPlayActivity : BaseActivity() {
 
     /*开始唱片旋转动画*/
     private fun startRecordRotation() {
-        val animator = adapter.mAnimationList[playViewPager.currentItem]
-        animator.start()
+        if(adapter.mAnimationList.size>0){
+            val animator = adapter.mAnimationList[playViewPager.currentItem]
+            animator.start()
+        }
     }
 
     /*停止唱片旋转动画*/
     private fun stopRecordRotation() {
-        val animator = adapter.mAnimationList[playViewPager.currentItem]
-        animator.cancel()
+      if(adapter.mAnimationList.size>playViewPager.currentItem){
+          val animator = adapter.mAnimationList[playViewPager.currentItem]
+          animator.cancel()
+      }
     }
 
     private fun initData() {
