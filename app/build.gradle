@@ -30,11 +30,11 @@ android {
         enabled = true
     }
 }
-kotlin{             //开始协程  --当前协程 暂不使用
+/*kotlin{             //开始协程  --当前协程 暂不使用
     experimental{
         coroutines 'enable'
     }
-}
+}*/
 
 
 dependencies {
