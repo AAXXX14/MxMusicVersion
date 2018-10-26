@@ -1,8 +1,10 @@
 package com.lq.mxmusic.view.activity
 
 import android.os.Bundle
+import android.view.View
 import com.lq.mxmusic.R
 import com.lq.mxmusic.base.BaseActivity
+import com.lq.mxmusic.callback.SafeClickCallBack
 import com.lq.mxmusic.reposity.config.AppConfig
 import kotlinx.android.synthetic.main.activity_about_app.*
 
@@ -20,6 +22,11 @@ class AboutAppActivity :BaseActivity(){
             SharedPreferencesUtil.setCurrentTheme(AppConfig.THEME_NIGHT)
             recreate()
         }
+        mTv.setOnClickListener(object:SafeClickCallBack(){
+            override fun onNoDoubleClick(v: View) {
+
+            }
+        })
     }
 
 
