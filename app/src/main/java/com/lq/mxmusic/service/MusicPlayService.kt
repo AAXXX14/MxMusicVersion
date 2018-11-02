@@ -4,8 +4,8 @@ import android.app.Service
 import android.content.Intent
 import android.content.SharedPreferences
 import android.media.MediaPlayer
+import android.os.Binder
 import android.os.IBinder
-import android.util.Log
 import com.lq.mxmusic.reposity.config.AppConfig
 import com.lq.mxmusic.reposity.config.PlayConfig
 import com.lq.mxmusic.reposity.database.AppDataBase
@@ -16,7 +16,7 @@ import com.lq.mxmusic.util.LogUtil
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import java.util.ArrayList
+import java.util.*
 
 /*
 *2018/10/12 0012  11:27
@@ -24,7 +24,7 @@ import java.util.ArrayList
 */
 class MusicPlayService : Service() {
     private val TAG = "MusicPlayService"
-    private val mediaPlayer by lazy { MediaPlayer() }
+     val mediaPlayer by lazy { MediaPlayer() }
     private var status = 3         //播放状态，默认为顺序播放
     private var currentTime: Int = 0        //当前播放进度
 
@@ -56,7 +56,7 @@ class MusicPlayService : Service() {
 
     /*更新当前状态*/
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    fun changeState(event: MusicPlayServiceEvent.MusicPlayServiceChangeStateEvent) {
+    fun serviceStateChangeEvent(event: MusicPlayServiceEvent.MusicPlayServiceChangeStateEvent) {
         when (PlayConfig.CURRENT_STATE) {
             PlayConfig.PLAY -> play(0)
             PlayConfig.NEXT -> next()
@@ -64,11 +64,6 @@ class MusicPlayService : Service() {
             PlayConfig.PAUSE -> pause()
             PlayConfig.RESUME -> resume()
         }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    fun setData(event: MusicPlayServiceEvent) {
-
     }
 
     /*播放*/
@@ -109,9 +104,7 @@ class MusicPlayService : Service() {
         play(0)
     }
 
-    /**
-     * 暂停音乐
-     */
+    /*暂停音乐*/
     private fun pause() {
         if (mediaPlayer.isPlaying) {
             mediaPlayer.pause()
@@ -130,25 +123,33 @@ class MusicPlayService : Service() {
         PlayConfig.IS_PLAY = true
     }
 
+    /*初始刷监听*/
     private fun initListener() {
         mediaPlayer.setOnCompletionListener {
-            if (status == 1) { // 单曲循环
-                mediaPlayer.start()
-            } else if (status == 2) { // 全部循环
-                current++
-                if (current > musicInfoList.size - 1) {  //变为第一首的位置继续播放
-                    current = 0
-                }
-                play(0)
-            } else if (status == 3) {//顺序播放
-                current++
-                if (current <= musicInfoList.size - 1) {
+            when (status) {
+                1 -> { mediaPlayer.start()}// 单曲循环
+                2 -> { // 全部循环
+                    current++
+                    if (current > musicInfoList.size - 1) {  //变为第一首的位置继续播放
+                        current = 0
+                    }
+                    SharedPreferencesUtil.setPlayPosition(current)
                     play(0)
-                } else {
-                    //nothing to do
                 }
-            } else if (status == 4) {    //随机播放
-
+                3 -> {//顺序播放
+                    current++
+                    if (current <= musicInfoList.size - 1) {
+                        SharedPreferencesUtil.setPlayPosition(current)
+                    }else{
+                        SharedPreferencesUtil.setPlayPosition(0)
+                    }
+                    play(0)
+                }
+                4 -> {    //随机播放
+                    val position= Random().nextInt(musicInfoList.size)
+                    SharedPreferencesUtil.setPlayPosition(position)
+                    play(0)
+                }
             }
         }
         mediaPlayer.setOnPreparedListener {
@@ -156,7 +157,6 @@ class MusicPlayService : Service() {
             if (currentTime > 0) { // 如果音乐不是从头播放
                 it.seekTo(currentTime)
             }
-
             //往最近播放中 添加数据
             if (path == null) {
                 //播放路径错误  不添加进表单
@@ -167,7 +167,7 @@ class MusicPlayService : Service() {
                 }
                 val data = musicInfoList[current]
                 val nearlyEntity = NearlyMusicEntity(data.id, data.musicName, data.musicSingerName, data.musicPath, data.musicProgress, data.musicLength,"")
-                AppDataBase.instance.nearlyMusicDao().insertMusic(nearlyEntity)
+//                AppDataBase.instance.nearlyMusicDao().insertMusic(nearlyEntity)
             }
         }
     }

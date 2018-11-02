@@ -13,19 +13,19 @@ import org.greenrobot.eventbus.EventBus
 
 /*
 *2018/10/17 0017  10:50
-*function by lq
+*播放工具 by lq
 */
 object PlayUtils {
 
     fun preparePlay(context: Context, position: Int, source: Int, mList: List<LocalMusicEntity>) {
-        val playPosition  = SharedPreferencesUtil.getPlayPosition()
-        if(playPosition == position ){
+        val playPosition = SharedPreferencesUtil.getPlayPosition()
+        if (playPosition == position) {
             //do nothing
-            if( PlayConfig.CURRENT_STATE == PlayConfig.PLAY){
-                    context.startActivity(Intent(context, MusicPlayActivity::class.java).run {
-                        putExtra(AppConfig.PLAY_ENTITY, mList[position]).putExtra(AppConfig.PLAY_SOURCE, AppConfig.PLAY_LOCAL)
-                    })
-            }else{
+            if (PlayConfig.CURRENT_STATE == PlayConfig.PLAY) {
+                context.startActivity(Intent(context, MusicPlayActivity::class.java).run {
+                    putExtra(AppConfig.PLAY_ENTITY, mList[position]).putExtra(AppConfig.PLAY_SOURCE, AppConfig.PLAY_LOCAL)
+                })
+            } else {
                 //通知播放
                 ServiceUtil.startPlayService(context)
                 /*设置播放状态*/
@@ -36,12 +36,12 @@ object PlayUtils {
                 MusicPlayService.setData(mList)
                 EventBus.getDefault().postSticky(MusicPlayServiceEvent.MusicPlayServiceChangeStateEvent)
             }
-        }else{
-           itemPlay(context,position,source,mList)
+        } else {
+            itemPlay(context, position, source, mList)
         }
     }
 
-    private fun itemPlay(context: Context, position: Int, source: Int, mList: List<LocalMusicEntity>){
+    private fun itemPlay(context: Context, position: Int, source: Int, mList: List<LocalMusicEntity>) {
         // 开启服务
         ServiceUtil.startPlayService(context)
         /*设置播放状态*/

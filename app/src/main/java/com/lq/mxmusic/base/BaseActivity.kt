@@ -1,10 +1,8 @@
 package com.lq.mxmusic.base
 
-import android.app.Activity
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
-import android.os.Build
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
@@ -13,14 +11,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.lq.mxmusic.R
-import com.lq.mxmusic.util.DisplayUtils
+import com.lq.mxmusic.callback.LifeCallBack
 import com.lq.mxmusic.callback.SafeClickCallBack
-import com.lq.mxmusic.reposity.config.AppConfig
-import com.lq.mxmusic.util.ServiceUtil
-import com.lq.mxmusic.util.StatusBarUtil
-import com.lq.mxmusic.util.ThemeUtils
+import com.lq.mxmusic.reposity.config.PlayConfig
+import com.lq.mxmusic.reposity.event.MusicPlayServiceEvent
+import com.lq.mxmusic.util.*
+import com.lq.mxmusic.view.activity.MusicPlayActivity
 import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.fragment_base.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /*
 *2018/10/8 0008  15:14
@@ -44,13 +45,31 @@ open class BaseActivity : AppCompatActivity() {
         setToolbar(baseActivityToolbar)
         initData()
         initListener()
-
+        EventBus.getDefault().register(this)
         //todo 默认开启服务
         ServiceUtil.startPlayService(this)
     }
 
     private fun initData() {
 //        showLoading()
+        if (ContainerBottomUtil.isEmptyData()){
+            forbidShowBottom()
+        }else{
+            showBottomTop()
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    fun bottomStateChangeEvent(event: MusicPlayServiceEvent.MusicPlayChangeStateEvent) {
+        if (PlayConfig.IS_PLAY) {
+            showBottomTop()
+            if(javaClass.simpleName == MusicPlayActivity::class.java.simpleName){
+                forbidShowBottom()
+
+            }
+        } else {
+            forbidShowBottom()
+        }
     }
 
     private fun initListener() {
@@ -98,8 +117,9 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     protected fun showBottomTop() {
+        containerBottomLL.visibility = View.VISIBLE
         val parameters = container.layoutParams as ViewGroup.MarginLayoutParams
-        parameters.bottomMargin = 0
+        parameters.bottomMargin = 150
     }
 
     /**
@@ -108,7 +128,7 @@ open class BaseActivity : AppCompatActivity() {
     protected fun onRefresh() {}
 
     protected fun setFitSystem(fit: Boolean) {
-        ll_root.fitsSystemWindows = fit
+//        ll_root.fitsSystemWindows = fit
     }
 
     override fun setContentView(layoutResID: Int) {
@@ -120,7 +140,7 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     protected fun setStatusColor(colorPrimary: Int) {
-        StatusBarUtil.setColor(this, ContextCompat.getColor(this, colorPrimary), 255)
+//        StatusBarUtil.setColor(this, ContextCompat.getColor(this, colorPrimary), 255)
     }
 
     protected fun setTitleText(title: Int) {
@@ -154,5 +174,10 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     fun <T : ViewModel> getViewModel(modelClass: Class<T>): T = provider.get(modelClass)
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
 
 }

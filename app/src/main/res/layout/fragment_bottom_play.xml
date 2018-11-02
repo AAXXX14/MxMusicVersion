@@ -20,12 +20,12 @@
 
             <ImageView
                 android:id="@+id/controlIv"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="6dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/icon_play" />
+                android:background="?attr/selectableItemBackgroundBorderless" />
 
             <ImageView
                 android:id="@+id/playListIv"
@@ -34,7 +34,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="6dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/titlebar_menu" />
+                 />
 
         </LinearLayout>
 

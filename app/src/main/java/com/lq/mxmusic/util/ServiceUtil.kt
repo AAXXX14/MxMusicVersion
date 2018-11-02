@@ -13,7 +13,7 @@ import com.lq.mxmusic.service.MusicPlayService
 *function by lq
 */
 object ServiceUtil {
-    fun isRunning(name: String): Boolean {
+   private fun isRunning(name: String): Boolean {
         val manager = App.instance.getSystemService(ACTIVITY_SERVICE) as ActivityManager
         for (service in manager.getRunningServices(Integer.MAX_VALUE)) {
             if (name == service.service.className) {

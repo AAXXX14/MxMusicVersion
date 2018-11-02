@@ -18,7 +18,7 @@ object ThemeUtils {
             AppConfig.THEME_DEFAULT -> {
                 activity.setTheme(R.style.DayTheme)
                 SharedPreferencesUtil.setCurrentTheme(AppConfig.THEME_DEFAULT)
-                StatusBarUtil.setColor(activity, ContextCompat.getColor(activity,R.color.transparent), 0)
+                StatusBarUtil.setColor(activity, ContextCompat.getColor(activity,R.color.colorPrimary), 0)
             }
             AppConfig.THEME_NIGHT -> {
                 activity.setTheme(R.style.NightTheme)

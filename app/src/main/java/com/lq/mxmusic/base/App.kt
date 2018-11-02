@@ -13,6 +13,7 @@ class App : Application(){
         instance = this
         registerActivityLifecycleCallbacks(LifeCallBack)
         super.onCreate()
+        SharedPreferencesUtil.setPlayPosition(0)
     }
 
     companion object {

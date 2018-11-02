@@ -5,7 +5,9 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
@@ -20,7 +22,9 @@ import com.lq.mxmusic.view.fragment.LocalFragment
 import com.lq.mxmusic.view.fragment.MusicFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import com.lq.mxmusic.callback.LifeCallBack
-        import com.lq.mxmusic.util.ThemeUtils
+import com.lq.mxmusic.util.StatusBarUtil
+import com.lq.mxmusic.util.ThemeUtils
+import kotlinx.android.synthetic.main.activity_music_play.*
 
 
 /*
@@ -34,6 +38,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         forbidShowToolbar()
+        adapterStatus()
         initToolbar()
         initNavigation()
         initViewPager()
@@ -49,6 +54,20 @@ class MainActivity : BaseActivity() {
         }
         friendIv.setOnClickListener {
             mainViewPager.currentItem = 2
+        }
+    }
+
+    private fun adapterStatus() {
+        val height = StatusBarUtil.getStatusBarHeight(this)
+        val params = mainStatusView.layoutParams
+        params.height = height
+        mainStatusView.layoutParams = params
+        //透明状态栏
+        if (Build.VERSION.SDK_INT >= 21) {
+            val decorView = window.decorView
+            val option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            decorView.systemUiVisibility = option
+            window.statusBarColor = Color.TRANSPARENT
         }
     }
 
@@ -73,8 +92,10 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item?.itemId == android.R.id.home)
+        if (item?.itemId == android.R.id.home) {
             mainDrawerLayout.openDrawer(Gravity.START)
+
+        }
         return super.onOptionsItemSelected(item)
     }
 
@@ -97,7 +118,6 @@ class MainActivity : BaseActivity() {
                     recreate()
                 }
                 else -> Log.w("MainActivity", "why you could call this ")
-
             }
             true
         }

@@ -29,10 +29,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--首页-->
         <activity android:name="com.lq.mxmusic.view.activity.MainActivity" />
+        <!--关于应用-->
         <activity android:name="com.lq.mxmusic.view.activity.AboutAppActivity" />
+        <!--本地-->
         <activity android:name="com.lq.mxmusic.view.activity.LocalMusicActivity" />
-        <activity android:name="com.lq.mxmusic.view.activity.MusicPlayActivity" />
+        <!--播放-->
+        <activity android:name="com.lq.mxmusic.view.activity.MusicPlayActivity" android:launchMode="singleTask"/>
+        <!--最近播放-->
         <activity android:name="com.lq.mxmusic.view.activity.NearlyPlayActivity" />
 
         <service android:name="com.lq.mxmusic.service.MusicPlayService" />

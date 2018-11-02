@@ -3,6 +3,7 @@ package com.lq.mxmusic.view.fragment
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.view.View
+import com.bumptech.glide.Glide
 import com.lq.mxmusic.R
 import com.lq.mxmusic.base.BaseFragment
 import com.lq.mxmusic.reposity.config.AppConfig
@@ -51,12 +52,12 @@ class BottomPlayFragment : BaseFragment() {
         } else {
             val source = SharedPreferencesUtil.getPlaySource()
             when (source) {
-                AppConfig.PLAY_LOCAL -> {
+                AppConfig.PLAY_LOCAL -> {//查询该数据库中数据添加进去
                     val list = AppDataBase.instance.localMusicDao().queryAll()
                     allList.clear()
                     allList.addAll(list)
                     MusicPlayService.setData(list)
-                }//查询该数据库中数据添加进去
+                }
             }
         }
         adapter.setData(allList)
@@ -133,8 +134,6 @@ class BottomPlayFragment : BaseFragment() {
             adapter.setData(allList)
             eventChange = true //不允许viewPager 切换播放
             val position = SharedPreferencesUtil.getPlayPosition() + 1
-            LogUtil.i("Position", "$position")
-            LogUtil.w("Size", "${allList.size - 1}")
             bottomContainerViewPager.setCurrentItem(position, false)
             eventChange = false
         }

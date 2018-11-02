@@ -1,12 +1,9 @@
 package com.lq.mxmusic.util
 
 import android.content.Context
-import android.media.AudioManager
 import android.media.MediaPlayer
 import android.provider.MediaStore
-import com.lq.mxmusic.base.App
 import com.lq.mxmusic.reposity.entity.LocalMusicEntity
-import java.io.IOException
 import java.util.ArrayList
 
 /**
@@ -24,14 +21,15 @@ object ScanMusicUtils {
         if (c != null) {
             while (c.moveToNext()) {
                 //扫描本地文件，得到歌曲的相关信息
-                val music_name = c.getString(c.getColumnIndex(MediaStore.Audio.Media.TITLE))
-                val music_singer = c.getString(c.getColumnIndex(MediaStore.Audio.Media.ARTIST))
+                val musicName = c.getString(c.getColumnIndex(MediaStore.Audio.Media.TITLE))
+                val musicSinger = c.getString(c.getColumnIndex(MediaStore.Audio.Media.ARTIST))
                 val path = c.getString(c.getColumnIndex(MediaStore.Audio.Media.DATA))
                 val length = obtainMusicTime(path)
                 if (length > 15)//小于15秒 不算歌曲文件
-                    arrayList.add(LocalMusicEntity(0, music_name, music_singer, path, 0, length))
+                    arrayList.add(LocalMusicEntity(0, musicName, musicSinger, path, 0, length))
             }
         }
+        c?.close()
         return arrayList
     }
 
@@ -52,21 +50,11 @@ object ScanMusicUtils {
     /**
      * 通过存储的总时长转换为String类型数据
      */
-    fun obtainStringTime(musicTime: Int): String {
+    fun obtainStringTime(musicTime: Long): String {
         val minuteTime = musicTime / 60
-        var min: String? = null
-        min = if (minuteTime / 60 >= 10) {//分钟数
-            Integer.toString(minuteTime)
-        } else {
-            "0$minuteTime"//拼接分钟数
-        }
+        val min =if (minuteTime / 60>= 10) (minuteTime/60).toString() else "0$minuteTime"//拼接分钟数
         val surplusSec = musicTime % 60
-        var surplus: String? = null//秒数
-        surplus = if (surplusSec >= 10) {
-            Integer.toString(surplusSec)
-        } else {
-            "0$surplusSec"
-        }
+       val surplus = if (surplusSec >= 10) "$surplusSec" else "0$surplusSec"
         return "$min:$surplus"
     }
 

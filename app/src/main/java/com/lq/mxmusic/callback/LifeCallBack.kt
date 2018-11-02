@@ -26,6 +26,10 @@ object LifeCallBack : Application.ActivityLifecycleCallbacks {
         android.os.Process.killProcess(android.os.Process.myPid())
     }
 
+    fun activityExit(activity:Activity):Boolean{
+        return activities.contains(activity)
+    }
+
     override fun onActivityPaused(activity: Activity?) {
 
     }
