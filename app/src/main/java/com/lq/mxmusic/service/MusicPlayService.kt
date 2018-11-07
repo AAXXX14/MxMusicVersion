@@ -167,6 +167,7 @@ class MusicPlayService : Service() {
                     AppDataBase.instance.nearlyMusicDao().deleteMusic(entity)
                 }
                 val data = musicInfoList[current]
+                //todo will add jni into this project
                 val nearlyEntity = NearlyMusicEntity(data.id, data.musicName, data.musicSingerName, data.musicPath, data.musicProgress, data.musicLength,"")
 //                AppDataBase.instance.nearlyMusicDao().insertMusic(nearlyEntity)
             }
