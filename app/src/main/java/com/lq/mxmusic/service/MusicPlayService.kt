@@ -1,8 +1,9 @@
 package com.lq.mxmusic.service
 
 import android.app.Service
+import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.ViewModel
 import android.content.Intent
-import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.os.Binder
 import android.os.IBinder
@@ -24,7 +25,6 @@ import java.util.*
 */
 class MusicPlayService : Service() {
     private val TAG = "MusicPlayService"
-     val mediaPlayer by lazy { MediaPlayer() }
     private var status = 3         //播放状态，默认为顺序播放
     private var currentTime: Int = 0        //当前播放进度
 
@@ -32,6 +32,8 @@ class MusicPlayService : Service() {
         private var current = 0        // 记录当前正在播放的音乐 position
         private val musicInfoList = ArrayList<LocalMusicEntity>()   //存放Mp3Info对象的集合
         private var path: String? = null            // 音乐文件路径
+        val mediaPlayer by lazy { MediaPlayer() }
+
         /*设置播放列表*/
         fun setData(list: List<LocalMusicEntity>) {
             musicInfoList.clear()
@@ -72,7 +74,6 @@ class MusicPlayService : Service() {
         mediaPlayer.reset()// 把各项参数恢复到初始状态
         current = SharedPreferencesUtil.getPlayPosition()
         path = musicInfoList[current].musicPath
-        LogUtil.w("LogTag", "$current")
         mediaPlayer.setDataSource(path)
         SharedPreferencesUtil.setPlayPosition(current)
         EventBus.getDefault().postSticky(MusicPlayServiceEvent.MusicPlayChangeStateEvent)
@@ -172,9 +173,25 @@ class MusicPlayService : Service() {
         }
     }
 
+    class PlayBinder :Binder(){
+        //跟进
+        fun playSeekTo(progress:Int){
+            mediaPlayer.seekTo(progress)
+        }
+
+        fun playProgress() :Int{
+            return mediaPlayer.currentPosition
+        }
+    }
+
+    class PlayServiceViewModel:ViewModel(){
+        val mediaProgress by lazy { MutableLiveData<Int>() }
+    }
 
     override fun onDestroy() {
         super.onDestroy()
+        mediaPlayer.stop()
+        mediaPlayer.release()
         EventBus.getDefault().unregister(this)
     }
 

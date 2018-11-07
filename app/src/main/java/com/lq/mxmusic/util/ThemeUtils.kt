@@ -7,7 +7,7 @@ import com.lq.mxmusic.reposity.config.AppConfig
 
 /*
 *2018/10/19 0019  10:15
-*function by lq
+*主题切换工具类 by lq
 */
 object ThemeUtils {
 
@@ -36,12 +36,10 @@ object ThemeUtils {
             AppConfig.THEME_DEFAULT ->{
                 activity.setTheme(R.style.NightTheme)
                 SharedPreferencesUtil.setCurrentTheme(AppConfig.THEME_NIGHT)
-                StatusBarUtil.setColor(activity, ContextCompat.getColor(activity,R.color.night_bg_color), 0)
             }
             AppConfig.THEME_NIGHT -> {
                 activity.setTheme(R.style.DayTheme)
                 SharedPreferencesUtil.setCurrentTheme(AppConfig.THEME_DEFAULT)
-                StatusBarUtil.setColor(activity, ContextCompat.getColor(activity,R.color.colorPrimary), 0)
             }
         }
     }

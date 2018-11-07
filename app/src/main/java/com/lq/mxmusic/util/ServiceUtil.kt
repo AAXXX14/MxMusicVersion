@@ -24,6 +24,6 @@ object ServiceUtil {
     }
 
     fun startPlayService(context:Context){
-        if(!isRunning("com.lq.mxmusic.service.MusicPlayService")) context.startService(Intent(context,MusicPlayService::class.java))
+        if(!isRunning(MusicPlayService::class.java.simpleName)) context.startService(Intent(context,MusicPlayService::class.java))
     }
 }

@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.graphics.Color
+import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
@@ -72,18 +73,21 @@ class MusicPlayActivity : BaseActivity() {
     private val playList by lazy { ArrayList<LocalMusicEntity>() } //当前播放的列表  的 图片
     private val musicAllList by lazy { ArrayList<CurrentMusicEntity>() }//全部播放列表
     private val adapter by lazy { PlayDiscViewPagerAdapter(mDiscLayouts) }
-    private lateinit var mService:IBinder
+    private lateinit var mServiceBinder: MusicPlayService.PlayBinder
     private val serviceConnection = object : ServiceConnection {
-            override fun onServiceDisconnected(name: ComponentName?) {
-                //与service 的连接 意外中断
-            }
-
-            override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-                mService = service!!
-                //service 连接成功
-            }
-
+        override fun onServiceDisconnected(name: ComponentName?) {
+            //与service 的连接 意外中断
+            ShowUtils.showInfo(this@MusicPlayActivity, "连接中断")
         }
+
+        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+            mServiceBinder = service as MusicPlayService.PlayBinder
+            LogUtil.i("Connected","yes i connected it")
+            //service 连接成功
+            initListener()
+        }
+
+    }
 
 
     //将当前 列表 添加到 CurrentPlayList
@@ -94,14 +98,27 @@ class MusicPlayActivity : BaseActivity() {
         initData()
         initViewPagerData()
         judgeState()
-        initListener()
         toBindService()
     }
 
     private fun toBindService() {
         //通过绑定service 将service 中的mediaPlay 与seekBar 绑定监听
         val serviceIntent = Intent(this, MusicPlayService::class.java)
-        bindService(serviceIntent, serviceConnection, Context.BIND_AUTO_CREATE)
+        val canBind = bindService(serviceIntent, object : ServiceConnection {
+            override fun onServiceDisconnected(name: ComponentName?) {
+                //与service 的连接 意外中断
+                ShowUtils.showInfo(this@MusicPlayActivity, "连接中断")
+            }
+
+            override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+                mServiceBinder = service as MusicPlayService.PlayBinder
+                LogUtil.i("Connected","yes i connected it")
+                //service 连接成功
+                initListener()
+            }
+
+        }, Context.BIND_AUTO_CREATE)
+        LogUtil.i("PlayBinder","$canBind")
     }
 
     private fun judgeState() {
@@ -289,7 +306,8 @@ class MusicPlayActivity : BaseActivity() {
         musicPlaySeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 //拖动  获取当前播放进度
-                val mProgress = seekBar?.progress
+                val mProgress = seekBar!!.progress
+                mServiceBinder.playSeekTo(mProgress)
                 LogUtil.i("Progress", "$mProgress")
             }
 
@@ -332,6 +350,6 @@ class MusicPlayActivity : BaseActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        unbindService(serviceConnection)
+//        unbindService(serviceConnection)
     }
 }

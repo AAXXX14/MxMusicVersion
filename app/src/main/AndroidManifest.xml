@@ -4,19 +4,19 @@
     package="com.lq.mxmusic">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+        android:name="com.lq.mxmusic.base.App"
         android:allowBackup="false"
+        android:appComponentFactory=""
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name="com.lq.mxmusic.base.App"
         android:theme="@style/AppTheme"
-        android:appComponentFactory=""
-        tools:replace="android:icon,android:label,android:theme,android:appComponentFactory"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:icon,android:label,android:theme,android:appComponentFactory">
         <activity android:name="com.lq.mxmusic.base.BaseActivity" />
         <activity
             android:name="com.lq.mxmusic.view.activity.SplashActivity"
@@ -36,10 +36,12 @@
         <!--本地-->
         <activity android:name="com.lq.mxmusic.view.activity.LocalMusicActivity" />
         <!--播放-->
-        <activity android:name="com.lq.mxmusic.view.activity.MusicPlayActivity" android:launchMode="singleTask"/>
+        <activity
+            android:name="com.lq.mxmusic.view.activity.MusicPlayActivity"
+            android:launchMode="singleTask" />
         <!--最近播放-->
         <activity android:name="com.lq.mxmusic.view.activity.NearlyPlayActivity" />
-
+        <!--播放服务-->
         <service android:name="com.lq.mxmusic.service.MusicPlayService" />
     </application>
 </manifest>
